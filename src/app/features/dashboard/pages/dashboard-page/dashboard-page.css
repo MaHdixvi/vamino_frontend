@@ -1,0 +1,22 @@
+/* dashboard-page.css */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.main-content {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.widgets-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}

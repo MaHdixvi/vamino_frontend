@@ -1,1 +1,10 @@
-<p>dashboard-widgets works!</p>
+<!-- dashboard-widgets.html -->
+<div class="widgets-container">
+  <div class="widget" *ngFor="let widget of widgets">
+    <h3>{{ widget.title }}</h3>
+    <p>{{ widget.value }}</p>
+    <div class="trend" [ngClass]="widget.trend">
+      <span>{{ widget.trendValue }}</span> {{ widget.description }}
+    </div>
+  </div>
+</div>
