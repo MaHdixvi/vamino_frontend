@@ -1,0 +1,56 @@
+/* features/admin/components/installment-table/installment-table.component.css */
+
+.installments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  direction: rtl;
+  text-align: right;
+}
+
+.installments-table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.installments-table thead th {
+  padding: 12px 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.installments-table tbody tr {
+  border-bottom: 1px solid #dee2e6;
+  transition: background-color 0.2s ease;
+}
+
+.installments-table tbody tr:hover {
+  background-color: #f1f8ff;
+}
+
+.installments-table tbody td {
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  color: #495057;
+}
+
+.installments-table tbody td:nth-child(4).overdue {
+  color: #fd7e14;
+  font-weight: bold;
+}
+
+.btn-action {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.btn-action:hover {
+  background-color: #0056b3;
+}

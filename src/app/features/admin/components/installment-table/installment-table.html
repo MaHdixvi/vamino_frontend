@@ -1,0 +1,23 @@
+<!-- features/admin/components/installment-table/installment-table.component.html -->
+<table class="installments-table">
+  <thead>
+    <tr>
+      <th>شماره قسط</th>
+      <th>تاریخ سررسید</th>
+      <th>مبلغ کل</th>
+      <th>وضعیت</th>
+      <th>عملیات</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let installment of installments">
+      <td>{{ installment.number }}</td>
+      <td>{{ installment.dueDate | date:'medium' }}</td>
+      <td>{{ installment.totalAmount | number }} تومان</td>
+      <td [class]="installment.status.toLowerCase()">{{ installment.status }}</td>
+      <td>
+        <button (click)="onAction(installment)" class="btn-action">اقدام</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

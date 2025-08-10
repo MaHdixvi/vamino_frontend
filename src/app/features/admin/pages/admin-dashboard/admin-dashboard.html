@@ -1,0 +1,37 @@
+<!-- features/admin/pages/admin-dashboard/admin-dashboard.html -->
+<div class="admin-dashboard-container">
+  <h1>داشبورد مدیریت</h1>
+
+  <div *ngIf="loading" class="loading">
+    در حال بارگذاری آمار...
+  </div>
+
+  <div *ngIf="!loading" class="stats-grid">
+    <div class="stat-card total">
+      <h3>کل درخواست‌ها</h3>
+      <p>{{ stats.totalApplications }}</p>
+    </div>
+
+    <div class="stat-card pending">
+      <h3>در انتظار بررسی</h3>
+      <p>{{ stats.pendingApplications }}</p>
+      <button (click)="navigateToApproval()" class="btn-action">بررسی</button>
+    </div>
+
+    <div class="stat-card approved">
+      <h3>تایید شده</h3>
+      <p>{{ stats.approvedApplications }}</p>
+    </div>
+
+    <div class="stat-card rejected">
+      <h3>رد شده</h3>
+      <p>{{ stats.rejectedApplications }}</p>
+    </div>
+
+    <div class="stat-card overdue">
+      <h3>اقساط معوقه</h3>
+      <p>{{ stats.overdueInstallments }}</p>
+      <button (click)="navigateToOverdue()" class="btn-action">مشاهده</button>
+    </div>
+  </div>
+</div>

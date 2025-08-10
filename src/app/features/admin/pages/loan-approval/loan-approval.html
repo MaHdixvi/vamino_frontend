@@ -1,0 +1,21 @@
+<!-- features/admin/pages/loan-approval/loan-approval.html -->
+<div class="loan-approval-page">
+  <h2>تأیید درخواست وام</h2>
+
+  <div *ngIf="loading" class="loading">
+    در حال بارگذاری درخواست‌ها...
+  </div>
+
+  <div *ngIf="!loading && applications.length === 0" class="empty-state">
+    درخواستی برای بررسی وجود ندارد.
+  </div>
+
+  <div *ngIf="!loading && applications.length > 0" class="applications-list">
+    <!-- استفاده از *ngFor برای ایجاد یک کارت برای هر درخواست -->
+    <app-loan-approval-card 
+      *ngFor="let app of applications" 
+      [application]="app"
+      (statusUpdate)="onStatusUpdate($event.id, $event.status, $event.reason)">
+    </app-loan-approval-card>
+  </div>
+</div>

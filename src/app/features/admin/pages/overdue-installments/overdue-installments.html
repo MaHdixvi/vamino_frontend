@@ -1,0 +1,18 @@
+<!-- features/admin/pages/overdue-installments/overdue-installments.html -->
+<div class="overdue-installments-page">
+  <h2>اقساط معوقه</h2>
+
+  <div *ngIf="loading" class="loading">
+    در حال بارگذاری اقساط معوقه...
+  </div>
+
+  <div *ngIf="!loading && installments.length === 0" class="empty-state">
+    اقساط معوقه‌ای وجود ندارد.
+  </div>
+
+  <div *ngIf="!loading && installments.length > 0">
+    <app-installment-table 
+      [installments]="installments"
+      (actionTaken)="onAction($event)">
+    </app-installment-table>  </div>
+</div>

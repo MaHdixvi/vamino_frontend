@@ -1,0 +1,32 @@
+<!-- features/admin/components/loan-approval-card/loan-approval-card.component.html -->
+<div class="loan-approval-card">
+  <div class="card-header">
+    <h3>درخواست وام #{{ application.id }}</h3>
+    <span class="status-badge" [class]="application.status.toLowerCase()">{{ application.status }}</span>
+  </div>
+  <div class="card-body">
+    <p><strong>کاربر:</strong> {{ application.userId }}</p>
+    <p><strong>مبلغ:</strong> {{ application.amount | number }} تومان</p>
+    <p><strong>هدف:</strong> {{ application.purpose }}</p>
+    <p><strong>نمره اعتباری:</strong> {{ application.creditScore }}</p>
+    <p><strong>تاریخ درخواست:</strong> {{ application.createdAt | date:'medium' }}</p>
+  </div>
+  <div class="card-actions">
+    <button (click)="approve()" class="btn approve">
+      تأیید
+    </button>
+    <button (click)="reject()" class="btn reject">
+      رد کردن
+    </button>
+  </div>
+  <div *ngIf="showReasonInput" class="reason-input">
+    <label for="rejectionReason">دلیل رد:</label>
+    <input
+      type="text"
+      id="rejectionReason"
+      [(ngModel)]="rejectionReason"
+      placeholder="دلیل رد درخواست را وارد کنید"
+    />
+    <button (click)="reject()" class="btn submit-reason">ارسال</button>
+  </div>
+</div>
