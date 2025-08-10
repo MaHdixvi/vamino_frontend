@@ -1,5 +1,22 @@
 <!-- app.html -->
-<div class="app-container">
-  <!-- You can add a global header or navigation here in the future -->
-  <router-outlet></router-outlet>
+<div [ngClass]="{'app-layout': !isAuthRoute()}">
+  <!-- هدر فقط در صورتی نمایش داده می‌شود که مسیر login یا register نباشد -->
+  <header class="app-header" *ngIf="!isAuthRoute()">
+    <app-header></app-header>
+  </header>
+
+  <!-- سایدبار فقط در صورتی نمایش داده می‌شود که مسیر login یا register نباشد -->
+  <aside class="app-sidebar" *ngIf="!isAuthRoute()">
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <!-- محتوای اصلی (داشبورد، لاگین و غیره) -->
+  <main class="app-main" [class.full-width]="isAuthRoute()">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- فوتر فقط در صورتی نمایش داده می‌شود که مسیر login یا register نباشد -->
+  <footer class="app-footer" *ngIf="!isAuthRoute()">
+    <app-footer></app-footer>
+  </footer>
 </div>
