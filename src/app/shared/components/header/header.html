@@ -1,1 +1,10 @@
-<p>header works!</p>
+<!-- app/components/header/header.html -->
+<header class="app-header">
+  <div class="logo">
+    <h1>وامینو</h1>
+  </div>
+  <div class="user-info">
+    <span>خوش آمدید، {{  userProfile?.name  }}</span>
+    <button (click)="logout()" class="btn-logout">خروج</button>
+  </div>
+</header>

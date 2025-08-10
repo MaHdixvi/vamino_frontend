@@ -1,0 +1,15 @@
+/* app/components/footer/footer.css */
+
+.app-footer {
+  background-color: #343a40;
+  color: #adb5bd;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  font-family: 'Tahoma', sans-serif;
+}

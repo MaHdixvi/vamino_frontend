@@ -1,1 +1,13 @@
-<p>sidebar works!</p>
+<!-- app/components/sidebar/sidebar.html -->
+<aside class="app-sidebar">
+  <nav>
+    <ul>
+      <li *ngFor="let item of menuItems" 
+          [class.active]="isActive(item.route)"
+          (click)="navigateTo(item.route)">
+        <span class="icon">{{ item.icon }}</span>
+        <span class="label">{{ item.label }}</span>
+      </li>
+    </ul>
+  </nav>
+</aside>

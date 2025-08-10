@@ -1,0 +1,16 @@
+/* app.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Tahoma', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+.app-container {
+  min-height: 100vh;
+}
