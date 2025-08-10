@@ -1,0 +1,179 @@
+/* features/profile/components/profile-edit/profile-edit.component.css */
+
+/**
+ * Main container for the profile edit page.
+ * Centers the form and provides a clean, card-like appearance.
+ */
+.profile-edit {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Tahoma', sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/**
+ * Styling for the main heading of the page.
+ * Uses the brand color for visual hierarchy.
+ */
+.profile-edit h2 {
+  color: #0056b3;
+  margin-bottom: 25px;
+  text-align: right;
+  font-size: 1.6rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+}
+
+/**
+ * Styling for the loading state.
+ * Provides a clear visual indicator while data is being fetched.
+ */
+.loading {
+  text-align: center;
+  padding: 30px;
+  color: #6c757d;
+}
+
+/**
+ * The main form container.
+ * Uses a column layout with consistent spacing between fields.
+ */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/**
+ * Styling for individual form groups (label and input).
+ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * Styling for form labels.
+ * Ensures they are right-aligned and clearly visible.
+ */
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #495057;
+  text-align: right;
+}
+
+/**
+ * Styling for input fields.
+ * Provides a consistent, modern look with proper padding and border.
+ * Sets the direction to LTR for input fields to handle numbers and emails correctly.
+ */
+.form-group input {
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  direction: ltr;
+  text-align: right;
+}
+
+/**
+ * Focus state for input fields.
+ * Enhances usability by providing visual feedback when a field is active.
+ */
+.form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/**
+ * Container for action buttons (Cancel and Save).
+ * Places buttons on the right with appropriate spacing.
+ */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/**
+ * Base styling for all buttons.
+ * Defines common properties like padding, border, and transition.
+ */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+/**
+ * Styling for the Cancel button.
+ * Uses a neutral color to indicate a non-destructive action.
+ */
+.btn.cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+/**
+ * Hover effect for the Cancel button.
+ */
+.btn.cancel:hover {
+  background-color: #5a6268;
+}
+
+/**
+ * Styling for the Save button.
+ * Uses the primary brand color to make it the focal point.
+ */
+.btn.save {
+  background-color: #007bff;
+  color: white;
+}
+
+/**
+ * Hover effect for the Save button (when enabled).
+ */
+.btn.save:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/**
+ * Disabled state for the Save button.
+ * Prevents interaction and changes the appearance to indicate it's inactive.
+ */
+.btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/**
+ * Responsive Design
+ * Adjusts the layout for smaller screens (mobile devices).
+ */
+@media (max-width: 600px) {
+  /* Reduce margins and padding for a tighter fit on mobile */
+  .profile-edit {
+    margin: 15px;
+    padding: 15px;
+  }
+
+  /* Stack the action buttons vertically on mobile */
+  .form-actions {
+    flex-direction: column;
+  }
+
+  /* Make buttons full-width on mobile */
+  .btn {
+    width: 100%;
+  }
+}

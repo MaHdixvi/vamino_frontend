@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { LoanListComponent } from "../../components";
 
 @Component({
   selector: 'app-loan-list-page',
-  imports: [],
+  imports: [LoanListComponent],
   templateUrl: './loan-list-page.html',
   styleUrl: './loan-list-page.css'
 })

@@ -1,0 +1,135 @@
+/* features/profile/components/profile-view/profile-view.component.css */
+
+.profile-view {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Tahoma', sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.profile-view h2 {
+  color: #0056b3;
+  margin-bottom: 25px;
+  text-align: right;
+  font-size: 1.6rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+}
+
+/* Loading and Error States */
+.loading,
+.error {
+  text-align: center;
+  padding: 30px;
+  font-size: 1.1rem;
+}
+
+.loading {
+  color: #6c757d;
+  background-color: #f8f9fa;
+}
+
+.error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+}
+
+/* Profile Information Grid */
+.profile-info {
+  display: grid;
+  gap: 18px;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  direction: rtl;
+}
+
+.info-row label {
+  font-weight: 600;
+  color: #495057;
+  text-align: right;
+}
+
+.info-row span {
+  color: #212529;
+  font-size: 1rem;
+}
+
+/* Credit Score Styling */
+span.credit-good {
+  color: #28a745;
+  font-weight: bold;
+}
+
+span.credit-fair {
+  color: #ffc107;
+  font-weight: 500;
+}
+
+span.credit-poor {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.status-badge.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .profile-view {
+    margin: 15px;
+    padding: 15px;
+  }
+
+  .info-row {
+    grid-template-columns: 1fr;
+    text-align: right;
+  }
+
+  .info-row label {
+    margin-bottom: 5px;
+  }
+}
+/* Credit Score Styling */
+span.credit-good {
+  color: #28a745;
+  font-weight: bold;
+}
+
+span.credit-fair {
+  color: #ffc107;
+  font-weight: 500;
+}
+
+span.credit-poor {
+  color: #dc3545;
+  font-weight: 500;
+}

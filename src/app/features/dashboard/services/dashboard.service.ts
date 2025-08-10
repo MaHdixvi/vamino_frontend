@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root', // Makes the service available application-wide
 })
 export class DashboardService {
-  private apiUrl = 'https://api.example.com/dashboard'; // Replace with your API endpoint
+  private apiUrl = `${environment.apiUrl}/dashboard`; // Replace with your API endpoint
 
   constructor(private http: HttpClient) {}
 

@@ -1,1 +1,21 @@
-<p>notification-list works!</p>
+<!-- notifications/components/notification-list/notification-list.component.html -->
+<div class="notification-list">
+  <h3>اعلان‌ها</h3>
+
+  <div *ngIf="loading" class="loading">
+    در حال بارگذاری اعلان‌ها...
+  </div>
+
+  <div *ngIf="!loading && notifications.length === 0" class="empty-state">
+    اعلانی وجود ندارد.
+  </div>
+
+  <div *ngIf="!loading && notifications.length > 0">
+    <app-notification-item 
+      *ngFor="let notification of notifications" 
+      [notification]="notification"
+      (click)="markAsRead(notification)"
+    >
+    </app-notification-item>
+  </div>
+</div>

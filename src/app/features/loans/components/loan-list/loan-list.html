@@ -1,1 +1,33 @@
-<p>loan-list works!</p>
+<!-- loans/components/loan-list/loan-list.component.html -->
+<div class="loan-list">
+  <h3>لیست وام‌های شما</h3>
+  
+  <div *ngIf="loading" class="loading">
+    در حال بارگذاری...
+  </div>
+
+  <table *ngIf="!loading" class="table">
+    <thead>
+      <tr>
+        <th>مبلغ</th>
+        <th>هدف</th>
+        <th>وضعیت</th>
+        <th>تاریخ</th>
+        <th>عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loan of loans">
+        <td>{{ loan.amount | number }} تومان</td>
+        <td [class]="loan.status">{{ loan.status }}</td>
+        <td>
+          <a [routerLink]="['/loans', loan.id]">مشاهده</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && loans.length === 0">
+    هیچ وامی یافت نشد.
+  </p>
+</div>

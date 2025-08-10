@@ -1,1 +1,35 @@
-<p>profile-view works!</p>
+<!-- features/profile/components/profile-view/profile-view.component.html -->
+<div class="profile-view">
+  <h2>اطلاعات پروفایل</h2>
+
+  <div *ngIf="loading" class="loading">
+    در حال بارگذاری اطلاعات...
+  </div>
+
+  <div *ngIf="!loading && profile" class="profile-info">
+    <div class="info-row">
+      <label>نام و نام خانوادگی:</label>
+      <span>{{ profile.name }}</span>
+    </div>
+    <div class="info-row">
+      <label>ایمیل:</label>
+      <span>{{ profile.email }}</span>
+    </div>
+    <div class="info-row">
+      <label>شماره تلفن:</label>
+      <span>{{ profile.phone || 'ندارد' }}</span>
+    </div>
+    <div class="info-row">
+      <label>نمره اعتباری (Credit Score):</label>
+      <span [class]="getScoreClass(profile.creditScore)">{{ profile.creditScore }}</span>
+    </div>
+    <div class="info-row">
+      <label>وضعیت حساب:</label>
+      <span class="status-badge" [class]="profile.status">{{ profile.status }}</span>
+    </div>
+  </div>
+
+  <p *ngIf="!loading && !profile" class="error">
+    اطلاعات پروفایل یافت نشد.
+  </p>
+</div>

@@ -1,0 +1,35 @@
+/* notifications/components/notification-list/notification-list.component.css */
+
+.notification-list {
+  width: 360px;
+  max-height: 600px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.notification-list h3 {
+  margin: 0;
+  padding: 16px 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.loading,
+.empty-state {
+  text-align: center;
+  padding: 30px 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.empty-state {
+  color: #888;
+  font-style: italic;
+}

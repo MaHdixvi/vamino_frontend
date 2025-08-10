@@ -1,1 +1,51 @@
-<p>profile-edit works!</p>
+<!-- features/profile/components/profile-edit/profile-edit.component.html -->
+<div class="profile-edit">
+  <h2>ویرایش پروفایل</h2>
+
+  <form *ngIf="!loading" (ngSubmit)="onSubmit()" class="profile-form">
+    <div class="form-group">
+      <label for="name">نام و نام خانوادگی *</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="profile.name"
+        name="name"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="email">ایمیل *</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="profile.email"
+        name="email"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">شماره تلفن</label>
+      <input
+        type="tel"
+        id="phone"
+        [(ngModel)]="profile.phone"
+        name="phone"
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="button" (click)="navigateToProfile()" class="btn cancel">
+        انصراف
+      </button>
+      <button type="submit" [disabled]="saving" class="btn save">
+        {{ saving ? 'در حال ذخیره...' : 'ذخیره تغییرات' }}
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="loading" class="loading">
+    در حال بارگذاری فرم...
+  </div>
+</div>
