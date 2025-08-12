@@ -31,32 +31,32 @@ export const routes: Routes = [
   {
     path: '',
     component: DashboardPage,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'loans',
     component: LoanListPage,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'loans/:id',
     component: LoanDetailsPage,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'notifications',
     component: NotificationPage,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'profile',
     component: ProfilePage,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'profile/edit',
     component: EditProfilePage,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
 
   // Fallback Route

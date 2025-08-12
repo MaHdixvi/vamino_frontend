@@ -1,4 +1,4 @@
-/* app.css */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -12,13 +12,15 @@ body {
   min-height: 100vh;
 }
 
+/* Layout Grid */
 .app-layout {
-  /* استفاده از CSS Grid برای چیدمان اصلی */
   display: grid;
   grid-template-areas:
     "header header"
     "sidebar main"
     "footer footer";
+  grid-template-rows: 60px 1fr 40px;
+  grid-template-columns: 250px 1fr;
   grid-template-rows: auto 1fr auto;
   /* هدر و فوتر اندازه خودشان، محتوا فضا را پر می‌کند */
   grid-template-columns: 250px 1fr;
@@ -27,37 +29,58 @@ body {
   width: 100%;
 }
 
-/* هدر */
+/* Header */
 .app-header {
   grid-area: header;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
+  height: 60px;
+  background-color: #0056b3;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  /* از آنجایی که ثابت (fixed) است، نیازی به تعیین ارتفاع در grid-template-rows کافی است */
+
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+
+  color: white;
+  font-weight: 600;
+
+  animation: fadeInDown 0.5s ease forwards;
 }
 
-/* سایدبار */
+/* Sidebar */
 .app-sidebar {
   grid-area: sidebar;
   position: fixed;
+  top: 0;
   top: 60px;
   /* ارتفاع هدر */
   left: 0;
-  bottom: 0;
+  bottom: 40px;
   width: 250px;
-  overflow-y: auto;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
   z-index: 900;
+
+  animation: slideInLeft 0.5s ease forwards;
 }
 
-/* محتوای اصلی */
+/* Main content */
 .app-main {
   grid-area: main;
+  margin-top: 60px;
+  min-height: calc(100vh - 100px);
   margin-top: 60px;
   margin-left: 250px;
   min-height: calc(100vh - 60px);
   padding: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   background-image: url(backgroundimage.png) !important;
   background-repeat: no-repeat;
   background-size: cover;
@@ -65,7 +88,7 @@ body {
   background-attachment: fixed;
 }
 
-/* کلاس برای حالت Full-Width (صفحات Auth) */
+/* Full width for auth pages */
 .app-main.full-width {
   margin-left: 0;
   margin-top: 0;
@@ -74,27 +97,72 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
 }
 
-/* فوتر */
+/* Footer */
 .app-footer {
   grid-area: footer;
   position: fixed;
   bottom: 0;
   right: 0;
   left: 0;
+  height: 40px;
+  background-color: #0056b3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1000;
-  /* از آنجایی که ثابت (fixed) است، در grid-template-rows مدیریت می‌شود */
+
+  animation: fadeInUp 0.5s ease forwards;
 }
 
-/* ریسپانسیو: برای دستگاه‌های کوچک (موبایل) */
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .app-layout {
-    /* تغییر چیدمان به یک ستونی */
     grid-template-areas:
       "header"
       "main"
       "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 1fr 40px;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr;
     /* فقط یک ستون */
@@ -102,12 +170,14 @@ body {
 
   .app-sidebar {
     display: none;
+    display: none;
     /* مخفی کردن سایدبار در موبایل */
   }
 
   .app-main {
-    /* حذف حاشیه چپ (سایدبار نیست) و تنظیم حاشیه بالا */
     margin-left: 0;
+    margin-top: 60px;
+    min-height: calc(100vh - 100px);
     margin-top: 60px;
     /* فقط فاصله از هدر */
     padding: 15px;

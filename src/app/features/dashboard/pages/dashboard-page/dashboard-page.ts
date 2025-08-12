@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { DashboardHeaderComponent, DashboardWidgets } from "../../components";
+import { DashboardHeaderComponent, DashboardWidgets, DashboardChartsComponent } from "../../components";
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [DashboardHeaderComponent, DashboardWidgets],
+  imports: [DashboardHeaderComponent, DashboardWidgets, DashboardChartsComponent],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css'
 })

@@ -1,45 +1,69 @@
-/* app/components/header/header.css */
-
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #0056b3;
+  background: linear-gradient(90deg, #0056b3, #4377f7);
   color: white;
-  padding: 15px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px 30px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   font-family: 'Tahoma', sans-serif;
+  user-select: none;
 }
 
 .logo h1 {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 15px;
-  font-size: 14px;
+  gap: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  user-select: text;
+  text-shadow: 0 0 4px rgba(0,0,0,0.3);
 }
 
 .btn-logout {
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 8px 16px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.2s;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.6);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .btn-logout:hover {
-  background-color: #c82333;
+  background-color: #b02a37;
+  box-shadow: 0 4px 10px rgba(176, 42, 55, 0.8);
+}
+
+/* ریسپانسیو */
+@media (max-width: 600px) {
+  .app-header {
+    flex-direction: column;
+    padding: 15px 20px;
+    gap: 10px;
+  }
+  .user-info {
+    gap: 10px;
+    font-size: 14px;
+  }
+  .btn-logout {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
 }

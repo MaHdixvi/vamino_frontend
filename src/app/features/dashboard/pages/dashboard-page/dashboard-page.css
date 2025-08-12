@@ -1,22 +1,24 @@
-/* dashboard-page.css */
-.dashboard-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-}
-
-.main-content {
-  flex: 1;
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .widgets-section {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+}
+
+/* هر ویجت یک سوم عرض روی دسکتاپ */
+.widgets-section app-dashboard-widgets {
+  flex: 1 1 calc(33.333% - 20px);
+}
+
+/* روی تبلت دو تا در هر ردیف */
+@media (max-width: 900px) {
+  .widgets-section app-dashboard-widgets {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+/* روی موبایل همه ویجت‌ها یک در هر ردیف */
+@media (max-width: 600px) {
+  .widgets-section app-dashboard-widgets {
+    flex: 1 1 100%;
+  }
 }

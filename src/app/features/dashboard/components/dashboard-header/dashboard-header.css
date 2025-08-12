@@ -1,47 +1,163 @@
-/* features/dashboard/components/dashboard-header/dashboard-header.component.css */
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #007bff;
-  color: white;
-  padding: 15px;
+  padding: 15px 30px;
+  background: linear-gradient(90deg, #0052d4, #4364f7, #6fb1fc);
+  color: #fff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
 }
 
 .header-left h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 25px;
 }
 
 .user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 16px;
+  font-weight: 500;
+  cursor: default;
+  user-select: text;
+  color: #e0e7ff;
+  text-shadow: 0 0 5px rgba(255 255 255 / 0.2);
+}
+
+.user-info .user-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #e0e7ff;
 }
 
 .notification-button,
 .logout-button {
-  padding: 8px 15px;
+  position: relative;
+  background: transparent;
   border: none;
-  border-radius: 4px;
+  color: white;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 0 0 transparent;
 }
 
 .notification-button {
-  background-color: #ffcc00;
-  color: black;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  overflow: visible;
+}
+
+.notification-button:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 12px rgba(255 255 255 / 0.4);
+}
+
+.notification-button .icon {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  pointer-events: none;
+}
+
+.notification-button .badge {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  background: #ff3860;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff3860aa;
+  user-select: none;
+  pointer-events: none;
 }
 
 .logout-button {
   background-color: #ff4d4d;
-  color: white;
+  box-shadow: 0 0 5px #ff4d4daa;
 }
 
 .logout-button:hover {
   background-color: #ff1a1a;
+  box-shadow: 0 0 12px #ff1a1aaa;
+}
+
+.logout-button .logout-icon {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+  pointer-events: none;
+}
+
+/* ریسپانسیو */
+@media (max-width: 640px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+  .header-right {
+    margin-top: 12px;
+    gap: 15px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .notification-button,
+  .logout-button {
+    flex: 1;
+    justify-content: center;
+  }
+}
+@media (max-width: 640px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+  
+  .header-left h1 {
+    font-size: 22px; /* کمی کوچکتر */
+  }
+  
+  .header-right {
+    margin-top: 12px;
+    gap: 12px; /* کمی کمتر فاصله */
+    width: 100%;
+    justify-content: space-between; /* کمی فاصله بیشتر بین دکمه‌ها */
+    flex-wrap: wrap; /* اگر جا کم بود، به خط بعد بره */
+  }
+  
+  .notification-button,
+  .logout-button {
+    flex: 1 1 48%; /* دکمه‌ها کنار هم با عرض تقریبا نصف */
+    justify-content: center;
+    padding: 10px 0;
+  }
+  
+  .user-info {
+    width: 100%;
+    margin-bottom: 8px;
+    justify-content: flex-start;
+  }
 }
