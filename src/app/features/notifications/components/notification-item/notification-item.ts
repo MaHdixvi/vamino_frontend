@@ -1,5 +1,10 @@
-// notifications/components/notification-item/notification-item.ts
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 export interface Notification {
   id: number;
@@ -13,23 +18,37 @@ export interface Notification {
 @Component({
   selector: 'app-notification-item',
   standalone: true,
-  imports: [],
   templateUrl: './notification-item.html',
   styleUrls: ['./notification-item.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationItemComponent {
   @Input() notification!: Notification;
 
-  // Returns a human-readable time string (e.g., "5 دقیقه پیش")
+  @Output() markRead = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
+
   get timeAgo(): string {
     const now = new Date();
     const diff = Math.floor(
       (now.getTime() - this.notification.timestamp.getTime()) / 60000
-    ); // Difference in minutes
+    );
 
     if (diff < 1) return 'هم اکنون';
     if (diff < 60) return `${diff} دقیقه پیش`;
     if (diff < 1440) return `${Math.floor(diff / 60)} ساعت پیش`;
     return `${Math.floor(diff / 1440)} روز پیش`;
+  }
+
+  onMarkRead(event: MouseEvent) {
+    event.stopPropagation();
+    if (!this.notification.read) {
+      this.markRead.emit(this.notification.id);
+    }
+  }
+
+  onDelete(event: MouseEvent) {
+    event.stopPropagation();
+    this.delete.emit(this.notification.id);
   }
 }

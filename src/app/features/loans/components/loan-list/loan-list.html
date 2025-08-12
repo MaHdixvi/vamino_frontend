@@ -1,12 +1,14 @@
-<!-- loans/components/loan-list/loan-list.component.html -->
 <div class="loan-list">
-  <h3>لیست وام‌های شما</h3>
-  
+  <div class="header" dir="ltr">
+    <a routerLink="/loan/add" class="btn-add-loan">درخواست وام جدید</a>
+    <h3>لیست وام‌های شما</h3>
+  </div>
+
   <div *ngIf="loading" class="loading">
     در حال بارگذاری...
   </div>
 
-  <table *ngIf="!loading" class="table">
+  <table *ngIf="!loading && loans.length > 0" class="table">
     <thead>
       <tr>
         <th>مبلغ</th>
@@ -19,7 +21,11 @@
     <tbody>
       <tr *ngFor="let loan of loans">
         <td>{{ loan.amount | number }} تومان</td>
-        <td [class]="loan.status">{{ loan.status }}</td>
+        <td>{{ loan.purpose }}</td>
+        <td [class]="loan.status.toLowerCase()">
+          {{ loan.status }}
+        </td>
+        <td>{{ loan.date | date: 'yyyy/MM/dd' }}</td>
         <td>
           <a [routerLink]="['/loans', loan.id]">مشاهده</a>
         </td>
@@ -27,7 +33,7 @@
     </tbody>
   </table>
 
-  <p *ngIf="!loading && loans.length === 0">
+  <p *ngIf="!loading && loans.length === 0" class="no-loans">
     هیچ وامی یافت نشد.
   </p>
 </div>

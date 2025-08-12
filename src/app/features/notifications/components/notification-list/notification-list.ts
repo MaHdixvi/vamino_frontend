@@ -1,20 +1,21 @@
-// notifications/components/notification-list/notification-list.ts
-import { Component, OnInit } from '@angular/core';
-import { Notification } from '../../components';
-import { NotificationItemComponent } from '../notification-item';
-import { NotificationService } from '../../services';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Notification } from '../../components/notification-item/notification-item';
+import { NotificationItemComponent } from '../notification-item/notification-item';
+import { NotificationService } from '../../services/notification.service';
 import { CommonModule } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-notification-list',
   standalone: true,
-  imports: [NotificationItemComponent,CommonModule],
+  imports: [NotificationItemComponent, CommonModule],
   templateUrl: './notification-list.html',
   styleUrls: ['./notification-list.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationListComponent implements OnInit {
-  notifications: Notification[] = [];
-  loading = true;
+  notifications$ = new BehaviorSubject<Notification[]>([]);
+  loading$ = new BehaviorSubject<boolean>(true);
 
   constructor(private notificationService: NotificationService) {}
 
@@ -23,37 +24,44 @@ export class NotificationListComponent implements OnInit {
   }
 
   loadNotifications(): void {
+    this.loading$.next(true);
     this.notificationService.getNotifications().subscribe({
-      next: (data:any) => {
-        this.notifications = data;
-        this.loading = false;
+      next: (data: Notification[]) => {
+        this.notifications$.next(data);
+        this.loading$.next(false);
       },
-      error: (err:any) => {
+      error: (err) => {
         console.error('Error loading notifications', err);
-        this.loading = false;
+        this.loading$.next(false);
       },
     });
   }
 
-  markAsRead(notification: Notification): void {
-    if (!notification.read) {
-      this.notificationService.markAsRead(notification.id).subscribe({
-        next: () => {
-          notification.read = true;
-        },
-        error: (err) => {
-          console.error('Error marking notification as read', err);
-        },
-      });
-    }
+  onMarkRead(id: number) {
+    this.notificationService.markAsRead(id).subscribe({
+      next: () => {
+        const current = this.notifications$.getValue();
+        const index = current.findIndex((n) => n.id === id);
+        if (index > -1) {
+          current[index].read = true;
+          this.notifications$.next([...current]);
+        }
+      },
+      error: (err) => {
+        console.error('Error marking notification as read', err);
+      },
+    });
   }
 
-  deleteNotification(id: number): void {
+  onDelete(id: number) {
     this.notificationService.deleteNotification(id).subscribe({
       next: () => {
-        this.notifications = this.notifications.filter((n) => n.id !== id);
+        const current = this.notifications$
+          .getValue()
+          .filter((n) => n.id !== id);
+        this.notifications$.next(current);
       },
-      error: (err:any) => {
+      error: (err) => {
         console.error('Error deleting notification', err);
       },
     });

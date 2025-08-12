@@ -1,25 +1,51 @@
-// loans/components/loan-list/loan-list.ts
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChildren,
+  QueryList,
+  ElementRef,
+} from '@angular/core';
 import { LoanService } from '../../services';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Loan } from 'app/core/models';
+import { gsap } from 'gsap';
 
 @Component({
   selector: 'app-loan-list',
   standalone: true,
-  imports: [CommonModule,RouterModule,CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './loan-list.html',
   styleUrls: ['./loan-list.css'],
 })
-export class LoanListComponent implements OnInit {
+export class LoanListComponent implements OnInit, AfterViewInit {
   loans: Loan[] = [];
   loading = true;
+
+  @ViewChildren('loanRow') loanRows!: QueryList<ElementRef>;
 
   constructor(private loanService: LoanService) {}
 
   ngOnInit(): void {
     this.loadLoans();
+  }
+
+  ngAfterViewInit(): void {
+    this.loanRows.changes.subscribe(() => {
+      if (this.loanRows.length > 0) {
+        gsap.from(
+          this.loanRows.toArray().map((e) => e.nativeElement),
+          {
+            opacity: 0,
+            x: 50,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power3.out',
+          }
+        );
+      }
+    });
   }
 
   loadLoans(): void {

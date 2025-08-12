@@ -1,37 +1,35 @@
-<!-- loans/components/loan-details/loan-details.component.html -->
-<div class="loan-details-container">
-  <!-- دکمه بازگشت -->
-  <button class="btn-back" (click)="goBack()">
+<div #container class="loan-details-container">
+  <button #btnBack type="button" class="btn-back" (click)="goBack()">
     &larr; بازگشت به لیست وام‌ها
   </button>
 
-  <!-- بارگذاری -->
   <div *ngIf="loading" class="loading">
     در حال بارگذاری اطلاعات وام...
   </div>
 
-  <!-- خطا -->
   <div *ngIf="error" class="error-message">
     {{ error }}
   </div>
 
-  <!-- اطلاعات وام -->
   <div *ngIf="loan && !loading" class="loan-info">
     <h2>جزئیات وام</h2>
-    
+
     <div class="info-grid">
       <div class="info-item">
         <label>مبلغ وام:</label>
-        <span>{{ loan.amount | number }} تومان</span>
+        <span #amountText></span>
       </div>
 
       <div class="info-item">
         <label>وضعیت:</label>
-        <span class="status-badge" [class]="loan.status">
-          {{ getStatusLabel(loan.status||'در انتظار بررسی') }}
-        </span>
+        <span #statusText class="status-badge"
+          [ngClass]="{
+            'pending': loan.status === 'pending',
+            'approved': loan.status === 'approved',
+            'rejected': loan.status === 'rejected'
+          }"
+        ></span>
       </div>
-
     </div>
   </div>
 </div>

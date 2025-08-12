@@ -1,0 +1,63 @@
+.loan-form-container {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: #f0f4f8;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.1);
+  font-family: 'Vazirmatn', Tahoma, sans-serif;
+  direction: rtl;
+  user-select: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #34495e;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border: 1.5px solid #b0bec5;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #0288d1;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #0288d1;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgb(2 136 209 / 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.btn-submit:disabled {
+  background-color: #90caf9;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-submit:not(:disabled):hover {
+  background-color: #0277bd;
+  box-shadow: 0 7px 20px rgb(2 119 189 / 0.7);
+}
