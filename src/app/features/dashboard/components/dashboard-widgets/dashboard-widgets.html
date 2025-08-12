@@ -1,5 +1,4 @@
-<!-- dashboard-widgets.html -->
-<div class="widgets-container">
+<div class="widgets-container" #container>
   <div class="widget" *ngFor="let widget of widgets">
     <h3>{{ widget.title }}</h3>
     <p>{{ widget.value }}</p>

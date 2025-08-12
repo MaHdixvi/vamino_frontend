@@ -53,9 +53,9 @@ body {
   grid-area: main;
   /* حاشیه برای جلوگیری از پوشیده شدن توسط هدر و سایدبار ثابت */
   margin-top: 60px; /* هم‌اندازه ارتفاع هدر */
-  margin-left: 250px; /* هم‌اندازه عرض سایدبار */
   min-height: calc(100vh - 60px); /* ارتفاع کل صفحه منهای ارتفاع هدر */
   padding: 20px;
+  padding-bottom: 40px;
   background-color: #f8f9fa;
 }
 

@@ -36,7 +36,7 @@ export class AuthService {
             JSON.stringify(response.profile)
           );
           this.isLoggedInFlag = true;
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('Login failed:', err);
