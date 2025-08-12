@@ -1,7 +1,6 @@
-// app.component.ts
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { Sidebar, Footer, Header } from "./shared/components";
+import { Sidebar, Footer, Header } from './shared/components';
 import { filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -9,13 +8,12 @@ import { CommonModule } from '@angular/common';
   selector: 'app-root',
   imports: [RouterOutlet, Sidebar, Footer, CommonModule, Header],
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrls: ['./app.css'],
 })
 export class App {
   currentRoute = '';
 
   constructor(private router: Router) {
-    // تشخیص مسیر فعلی
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -23,11 +21,10 @@ export class App {
       });
   }
 
-  // بررسی اینکه آیا مسیر فعلی یک صفحه احراز هویت است
   isAuthRoute(): boolean {
     return (
-      this.currentRoute.includes('auth/login') ||
-      this.currentRoute.includes('auth/register')
+      this.currentRoute === '/auth/login' ||
+      this.currentRoute === '/auth/register'
     );
   }
 }
