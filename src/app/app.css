@@ -55,8 +55,7 @@ body {
 .app-sidebar {
   grid-area: sidebar;
   position: fixed;
-  top: 0;
-  top: 60px;
+  top: 9px;
   /* ارتفاع هدر */
   left: 0;
   bottom: 40px;
@@ -72,9 +71,7 @@ body {
 /* Main content */
 .app-main {
   grid-area: main;
-  min-height: calc(100vh - 100px);
   margin-top: 60px;
-  margin-left: 250px;
   min-height: calc(100vh - 60px);
   padding: 20px;
   background-color: #fff;
@@ -169,15 +166,11 @@ body {
 
   .app-sidebar {
     display: none;
-    display: none;
     /* مخفی کردن سایدبار در موبایل */
   }
 
   .app-main {
-    margin-left: 0;
-    margin-top: 60px;
     min-height: calc(100vh - 100px);
-    margin-top: 60px;
     /* فقط فاصله از هدر */
     padding: 15px;
   }

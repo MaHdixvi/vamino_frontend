@@ -1,51 +1,64 @@
-<!-- features/profile/components/profile-edit/profile-edit.component.html -->
-<div class="profile-edit">
+<div class="profile-edit-container" *ngIf="!loading; else loadingTpl">
   <h2>ویرایش پروفایل</h2>
 
-  <form *ngIf="!loading" (ngSubmit)="onSubmit()" class="profile-form">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <!-- نام -->
     <div class="form-group">
-      <label for="name">نام و نام خانوادگی *</label>
-      <input
-        type="text"
-        id="name"
-        [(ngModel)]="profile.name"
-        name="name"
-        required
-      />
+      <label for="name">نام</label>
+      <input id="name" type="text" formControlName="name" />
+      <div class="error" *ngIf="name?.touched && name?.invalid">
+        نام الزامی است.
+      </div>
     </div>
 
+    <!-- ایمیل -->
     <div class="form-group">
-      <label for="email">ایمیل *</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="profile.email"
-        name="email"
-        required
-      />
+      <label for="email">ایمیل</label>
+      <input id="email" type="email" formControlName="email" />
+      <div class="error" *ngIf="email?.touched && email?.invalid">
+        <span *ngIf="email?.errors?.['required']">ایمیل الزامی است.</span>
+        <span *ngIf="email?.errors?.['email']">فرمت ایمیل معتبر نیست.</span>
+      </div>
     </div>
 
+    <!-- شماره تلفن -->
     <div class="form-group">
       <label for="phone">شماره تلفن</label>
-      <input
-        type="tel"
-        id="phone"
-        [(ngModel)]="profile.phone"
-        name="phone"
-      />
+      <input id="phone" type="text" formControlName="phone" />
+      <div class="error" *ngIf="phone?.touched && phone?.invalid">
+        شماره تلفن معتبر نیست.
+      </div>
     </div>
 
-    <div class="form-actions">
-      <button type="button" (click)="navigateToProfile()" class="btn cancel">
-        انصراف
-      </button>
-      <button type="submit" [disabled]="saving" class="btn save">
+    <!-- امتیاز اعتباری -->
+    <div class="form-group">
+      <label for="creditScore">امتیاز اعتباری</label>
+      <input id="creditScore" type="number" formControlName="creditScore" />
+      <div class="error" *ngIf="creditScore?.touched && creditScore?.invalid">
+        امتیاز باید بین ۰ تا ۹۰۰ باشد.
+      </div>
+    </div>
+
+    <!-- وضعیت -->
+    <div class="form-group">
+      <label for="status">وضعیت</label>
+      <select id="status" formControlName="status">
+        <option value="active">فعال</option>
+        <option value="inactive">غیرفعال</option>
+      </select>
+    </div>
+
+    <!-- دکمه‌ها -->
+    <div class="actions">
+      <button type="submit" [disabled]="saving">
         {{ saving ? 'در حال ذخیره...' : 'ذخیره تغییرات' }}
       </button>
+      <button type="button" (click)="navigateToProfile()">بازگشت</button>
     </div>
   </form>
-
-  <div *ngIf="loading" class="loading">
-    در حال بارگذاری فرم...
-  </div>
 </div>
+
+<!-- حالت لودینگ -->
+<ng-template #loadingTpl>
+  <p>در حال بارگذاری پروفایل...</p>
+</ng-template>

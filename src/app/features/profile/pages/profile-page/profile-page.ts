@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { ProfileViewComponent } from "../../components";
 
 @Component({
   selector: 'app-profile-page',
-  imports: [],
+  imports: [ProfileViewComponent],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css'
 })
