@@ -1,30 +1,18 @@
-<div class="login-container">
-  <h2>Login</h2>
+<div #loginBox class="login-container">
+  <h2 #titleEl>Login</h2>
   <form (ngSubmit)="login()" #loginForm="ngForm">
     <!-- Username Field -->
-    <div class="form-group">
+    <div #formItem class="form-group">
       <label for="username">Username:</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        [(ngModel)]="username"
-        required
-        placeholder="Enter your username"
-      />
+      <input type="text" id="username" name="username" [(ngModel)]="username" required placeholder="Enter your username"
+        class="form-control" />
     </div>
 
     <!-- Password Field -->
-    <div class="form-group">
+    <div #formItem class="form-group">
       <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        [(ngModel)]="password"
-        required
-        placeholder="Enter your password"
-      />
+      <input type="password" id="password" name="password" [(ngModel)]="password" required
+        placeholder="Enter your password" class="form-control" />
     </div>
 
     <!-- Error Message -->
@@ -34,5 +22,11 @@
 
     <!-- Submit Button -->
     <button type="submit" [disabled]="!username || !password">Login</button>
+
+    <!-- Router Links -->
+    <div class="login-links">
+      <a routerLink="/auth/register">Don't have an account? <strong>Sign up</strong></a> |
+      <a routerLink="/auth/forgot-password"><strong>Forgot password?</strong></a>
+    </div>
   </form>
 </div>

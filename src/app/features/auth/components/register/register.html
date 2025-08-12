@@ -1,57 +1,32 @@
 <!-- auth/components/register/register.component.html -->
-<div class="register-container">
-  <h2>Register</h2>
+<div #registerBox class="register-container">
+  <h2 #titleEl>Register</h2>
   <form (ngSubmit)="register()" #registerForm="ngForm">
     <!-- Username Field -->
-    <div class="form-group">
+    <div #formItem class="form-group">
       <label for="username">Username:</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        [(ngModel)]="username"
-        required
-        placeholder="Enter your username"
-      />
+      <input type="text" id="username" name="username" [(ngModel)]="username" required
+        placeholder="Enter your username" />
     </div>
 
     <!-- Email Field -->
-    <div class="form-group">
+    <div #formItem class="form-group">
       <label for="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        [(ngModel)]="email"
-        required
-        placeholder="Enter your email"
-      />
+      <input type="email" id="email" name="email" [(ngModel)]="email" required placeholder="Enter your email" />
     </div>
 
     <!-- Password Field -->
-    <div class="form-group">
+    <div #formItem class="form-group">
       <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        [(ngModel)]="password"
-        required
-        placeholder="Enter your password"
-      />
+      <input type="password" id="password" name="password" [(ngModel)]="password" required
+        placeholder="Enter your password" />
     </div>
 
     <!-- Confirm Password Field -->
-    <div class="form-group">
+    <div #formItem class="form-group">
       <label for="confirmPassword">Confirm Password:</label>
-      <input
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        [(ngModel)]="confirmPassword"
-        required
-        placeholder="Confirm your password"
-      />
+      <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required
+        placeholder="Confirm your password" />
     </div>
 
     <!-- Error Message -->
@@ -63,5 +38,10 @@
     <button type="submit" [disabled]="!username || !password || !email || !confirmPassword">
       Register
     </button>
+
+    <!-- Router Links -->
+    <div class="login-links">
+      <a routerLink="/auth/login">Back to Login</a>
+    </div>
   </form>
 </div>

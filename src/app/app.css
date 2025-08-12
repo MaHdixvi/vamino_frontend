@@ -19,8 +19,10 @@ body {
     "header header"
     "sidebar main"
     "footer footer";
-  grid-template-rows: auto 1fr auto; /* هدر و فوتر اندازه خودشان، محتوا فضا را پر می‌کند */
-  grid-template-columns: 250px 1fr; /* سایدبار 250px، محتوا فضا را پر می‌کند */
+  grid-template-rows: auto 1fr auto;
+  /* هدر و فوتر اندازه خودشان، محتوا فضا را پر می‌کند */
+  grid-template-columns: 250px 1fr;
+  /* سایدبار 250px، محتوا فضا را پر می‌کند */
   min-height: 100vh;
   width: 100%;
 }
@@ -40,7 +42,8 @@ body {
 .app-sidebar {
   grid-area: sidebar;
   position: fixed;
-  top: 60px; /* ارتفاع هدر */
+  top: 60px;
+  /* ارتفاع هدر */
   left: 0;
   bottom: 0;
   width: 250px;
@@ -51,12 +54,15 @@ body {
 /* محتوای اصلی */
 .app-main {
   grid-area: main;
-  /* حاشیه برای جلوگیری از پوشیده شدن توسط هدر و سایدبار ثابت */
-  margin-top: 60px; /* هم‌اندازه ارتفاع هدر */
-  margin-left: 250px; /* هم‌اندازه عرض سایدبار */
-  min-height: calc(100vh - 60px); /* ارتفاع کل صفحه منهای ارتفاع هدر */
+  margin-top: 60px;
+  margin-left: 250px;
+  min-height: calc(100vh - 60px);
   padding: 20px;
-  background-color: #f8f9fa;
+  background-image: url(backgroundimage.png) !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom left;
+  background-attachment: fixed;
 }
 
 /* کلاس برای حالت Full-Width (صفحات Auth) */
@@ -90,17 +96,20 @@ body {
       "main"
       "footer";
     grid-template-rows: auto 1fr auto;
-    grid-template-columns: 1fr; /* فقط یک ستون */
+    grid-template-columns: 1fr;
+    /* فقط یک ستون */
   }
 
   .app-sidebar {
-    display: none; /* مخفی کردن سایدبار در موبایل */
+    display: none;
+    /* مخفی کردن سایدبار در موبایل */
   }
 
   .app-main {
     /* حذف حاشیه چپ (سایدبار نیست) و تنظیم حاشیه بالا */
     margin-left: 0;
-    margin-top: 60px; /* فقط فاصله از هدر */
+    margin-top: 60px;
+    /* فقط فاصله از هدر */
     padding: 15px;
   }
 

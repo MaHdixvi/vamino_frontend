@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Sidebar, Footer,CommonModule],
+  imports: [RouterOutlet, Header, Sidebar, Footer, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -27,7 +27,8 @@ export class App {
   isAuthRoute(): boolean {
     return (
       this.currentRoute.includes('auth/login') ||
-      this.currentRoute.includes('auth/register')
+      this.currentRoute.includes('auth/register') ||
+      this.currentRoute.includes('auth/forgot-password')
     );
   }
 }
