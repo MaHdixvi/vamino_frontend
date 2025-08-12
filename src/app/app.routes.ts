@@ -10,7 +10,11 @@ import { DashboardPage } from './features/dashboard/pages';
 import { LoanDetailsPage, LoanFormPage, LoanListPage } from './features/loans/pages';
 import { NotificationPage } from './features/notifications/pages';
 import { EditProfilePage, ProfilePage } from './features/profile/pages';
+<<<<<<< HEAD
 import { LoanFormComponent } from './features/loans/components';
+=======
+import { ForgotPasswordPage } from './features/auth/pages';
+>>>>>>> 793885ddd0362cf83a0f03f69d2d26b740a31d77
 
 export const routes: Routes = [
   // Public Routes
@@ -21,6 +25,10 @@ export const routes: Routes = [
   {
     path: 'auth/register',
     component: RegisterComponent,
+  },
+  {
+    path: 'auth/forgot-password',
+    component: ForgotPasswordPage,
   },
 
   // Protected Routes (require authentication)

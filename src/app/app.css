@@ -21,6 +21,10 @@ body {
     "footer footer";
   grid-template-rows: 60px 1fr 40px;
   grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr auto;
+  /* هدر و فوتر اندازه خودشان، محتوا فضا را پر می‌کند */
+  grid-template-columns: 250px 1fr;
+  /* سایدبار 250px، محتوا فضا را پر می‌کند */
   min-height: 100vh;
   width: 100%;
 }
@@ -52,6 +56,8 @@ body {
   grid-area: sidebar;
   position: fixed;
   top: 0;
+  top: 60px;
+  /* ارتفاع هدر */
   left: 0;
   bottom: 40px;
   width: 250px;
@@ -67,10 +73,18 @@ body {
 .app-main {
   grid-area: main;
   min-height: calc(100vh - 100px);
+  margin-top: 60px;
+  margin-left: 250px;
+  min-height: calc(100vh - 60px);
   padding: 20px;
   background-color: #fff;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-image: url(backgroundimage.png) !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom left;
+  background-attachment: fixed;
 }
 
 /* Full width for auth pages */
@@ -148,16 +162,23 @@ body {
       "footer";
     grid-template-columns: 1fr;
     grid-template-rows: 60px 1fr 40px;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    /* فقط یک ستون */
   }
 
   .app-sidebar {
     display: none;
+    display: none;
+    /* مخفی کردن سایدبار در موبایل */
   }
 
   .app-main {
     margin-left: 0;
     margin-top: 60px;
     min-height: calc(100vh - 100px);
+    margin-top: 60px;
+    /* فقط فاصله از هدر */
     padding: 15px;
   }
 
