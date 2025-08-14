@@ -1,18 +1,18 @@
 <div #loginBox class="login-container">
-  <h2 #titleEl>Login</h2>
-  <form (ngSubmit)="login()" #loginForm="ngForm">
+  <h2 #titleEl>ورود</h2>
+  <form (ngSubmit)="login()" #loginForm="ngForm"  dir="rtl">
     <!-- Username Field -->
     <div #formItem class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" [(ngModel)]="username" required placeholder="Enter your username"
+      <label for="username" class="float-end">نام کاربری:</label>
+      <input type="text" id="username" name="username" [(ngModel)]="username" required placeholder="نام کاربری خود را وارد کنید"
         class="form-control" />
     </div>
 
     <!-- Password Field -->
     <div #formItem class="form-group">
-      <label for="password">Password:</label>
+      <label for="password" class="float-end">رمز عبور:</label>
       <input type="password" id="password" name="password" [(ngModel)]="password" required
-        placeholder="Enter your password" class="form-control" />
+        placeholder="رمز عبور خود را وارد کنید" class="form-control" />
     </div>
 
     <!-- Error Message -->
@@ -21,12 +21,12 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" [disabled]="!username || !password">Login</button>
+    <button type="submit" [disabled]="!username || !password">ورود</button>
 
     <!-- Router Links -->
     <div class="login-links">
-      <a routerLink="/auth/register">Don't have an account? <strong>Sign up</strong></a> |
-      <a routerLink="/auth/forgot-password"><strong>Forgot password?</strong></a>
+      <a routerLink="/auth/register" dir="rtl"><strong>ثبت نام</strong></a> |
+      <a routerLink="/auth/forgot-password" dir="rtl"><strong>رمز خود را فراموش کردید؟</strong></a>
     </div>
   </form>
 </div>

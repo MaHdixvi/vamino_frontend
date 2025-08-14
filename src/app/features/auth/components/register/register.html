@@ -1,32 +1,47 @@
-<!-- auth/components/register/register.component.html -->
 <div #registerBox class="register-container">
-  <h2 #titleEl>Register</h2>
-  <form (ngSubmit)="register()" #registerForm="ngForm">
-    <!-- Username Field -->
+  <h2 #titleEl>ثبت نام</h2>
+  <form (ngSubmit)="register()" #registerForm="ngForm" dir="rtl">
+
+    <!-- Full Name -->
     <div #formItem class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" [(ngModel)]="username" required
-        placeholder="Enter your username" />
+      <label class="float-end" for="name">نام کامل:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="name" required placeholder="نام کامل خود را وارد کنید" />
     </div>
 
-    <!-- Email Field -->
+    <!-- National ID -->
     <div #formItem class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" [(ngModel)]="email" required placeholder="Enter your email" />
+      <label class="float-end" for="nationalId">کد ملی:</label>
+      <input type="text" id="nationalId" name="nationalId" [(ngModel)]="nationalId" required minlength="10" maxlength="10" placeholder="کد ملی 10 رقمی" />
     </div>
 
-    <!-- Password Field -->
+    <!-- Phone Number -->
     <div #formItem class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" [(ngModel)]="password" required
-        placeholder="Enter your password" />
+      <label class="float-end" for="phoneNumber">شماره موبایل:</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" required minlength="11" maxlength="11" placeholder="شماره موبایل 11 رقمی" />
     </div>
 
-    <!-- Confirm Password Field -->
+    <!-- Email -->
     <div #formItem class="form-group">
-      <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required
-        placeholder="Confirm your password" />
+      <label class="float-end" for="email">ایمیل:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="ایمیل خود را وارد کنید" />
+    </div>
+
+    <!-- Bank Account -->
+    <div #formItem class="form-group">
+      <label class="float-end" for="bankAccountNumber">شماره حساب بانکی:</label>
+      <input type="text" id="bankAccountNumber" name="bankAccountNumber" [(ngModel)]="bankAccountNumber" placeholder="شماره حساب بانکی" />
+    </div>
+
+    <!-- Password -->
+    <div #formItem class="form-group">
+      <label class="float-end" for="password">رمز عبور:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required placeholder="رمز خود را وارد کنید" />
+    </div>
+
+    <!-- Confirm Password -->
+    <div #formItem class="form-group">
+      <label class="float-end" for="confirmPassword">تکرار رمز عبور:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required placeholder="رمز خود را تایید کنید" />
     </div>
 
     <!-- Error Message -->
@@ -35,13 +50,13 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" [disabled]="!username || !password || !email || !confirmPassword">
-      Register
+    <button type="submit" [disabled]="!name || !nationalId || !phoneNumber || !password || !confirmPassword">
+      ثبت نام
     </button>
 
     <!-- Router Links -->
     <div class="login-links">
-      <a routerLink="/auth/login">Back to Login</a>
+      <a routerLink="/auth/login">بازگشت به ورود</a>
     </div>
   </form>
 </div>

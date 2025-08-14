@@ -1,9 +1,18 @@
-<header class="app-header" dir="rtl">
+<header class="app-header">
   <div #logo class="logo">
-    <h1>وامینو</h1>
+    <h1>MyApp</h1>
   </div>
-  <div #userInfo class="user-info">
-    <span>خوش آمدید، {{ userProfile?.name }}</span>
-    <button (click)="logout()" class="btn-logout">خروج</button>
+
+  <div #userInfo *ngIf="userProfile; else loginBlock" class="user-info">
+    <span class="user-name">
+      سلام، {{ userProfile.name || userProfile.sub }}
+    </span>
+    <button class="btn-logout" (click)="logout()">خروج</button>
   </div>
+
+  <ng-template #loginBlock>
+    <div class="user-info">
+      <a routerLink="/auth/login">ورود</a>
+    </div>
+  </ng-template>
 </header>
