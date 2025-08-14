@@ -15,8 +15,7 @@ export class NotificationPage implements AfterViewInit {
   ngAfterViewInit() {
     const container = this.pageContainer.nativeElement;
 
-    // انیمیشن عنوان
-    gsap.from(container.querySelector('h1'), {
+    gsap.from(container, {
       y: -20,
       opacity: 0,
       duration: 0.8,

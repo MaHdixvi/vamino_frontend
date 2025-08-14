@@ -5,6 +5,7 @@ import {
   ViewChildren,
   QueryList,
   ElementRef,
+  ViewChild,
 } from '@angular/core';
 import { LoanService } from '../../services';
 import { CommonModule } from '@angular/common';
@@ -24,14 +25,22 @@ export class LoanListComponent implements OnInit, AfterViewInit {
   loading = true;
 
   @ViewChildren('loanRow') loanRows!: QueryList<ElementRef>;
+  @ViewChild('loanListContainer', { static: true }) loanListContainer!: ElementRef;
 
-  constructor(private loanService: LoanService) {}
+
+  constructor(private loanService: LoanService) { }
 
   ngOnInit(): void {
     this.loadLoans();
   }
 
   ngAfterViewInit(): void {
+    gsap.from(this.loanListContainer.nativeElement, {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      ease: 'power2.out'
+    });
     this.loanRows.changes.subscribe(() => {
       if (this.loanRows.length > 0) {
         gsap.from(

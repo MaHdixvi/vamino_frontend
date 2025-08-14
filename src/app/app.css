@@ -77,10 +77,10 @@ body {
   background-color: #fff;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  background-image: url(backgroundimage.png) !important;
+  background-image: url(../assets/images/backgroundimage.png) !important;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: bottom left;
+  background-position: center right;
   background-attachment: fixed;
 }
 

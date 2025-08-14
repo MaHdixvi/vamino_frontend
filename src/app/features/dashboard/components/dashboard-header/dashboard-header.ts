@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'app/core/services';
 import { gsap } from 'gsap';
 
 @Component({
   selector: 'app-dashboard-header',
   templateUrl: './dashboard-header.html',
-  imports:[CommonModule],
+  imports:[CommonModule, RouterModule],
   styleUrls: ['./dashboard-header.css'],
 })
 export class DashboardHeaderComponent implements AfterViewInit {

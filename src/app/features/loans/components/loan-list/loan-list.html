@@ -1,7 +1,7 @@
-<div class="loan-list">
+<div #loanListContainer class="loan-list">
   <div class="header" dir="ltr">
     <a routerLink="/loan/add" class="btn-add-loan">درخواست وام جدید</a>
-    <h3>لیست وام‌های شما</h3>
+    <h3 #headerEls>لیست وام‌های شما</h3>
   </div>
 
   <div *ngIf="loading" class="loading">
@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let loan of loans">
+      <tr #loanRows *ngFor="let loan of loans">
         <td>{{ loan.amount | number }} تومان</td>
         <td>{{ loan.purpose }}</td>
         <td [class]="loan.status.toLowerCase()">

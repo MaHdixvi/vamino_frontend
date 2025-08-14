@@ -1,17 +1,13 @@
-<div class="profile-edit-container" *ngIf="!loading; else loadingTpl">
+<div #formContainer class="profile-edit-container" *ngIf="!loading; else loadingTpl">
   <h2>ویرایش پروفایل</h2>
 
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <!-- نام -->
     <div class="form-group">
       <label for="name">نام</label>
       <input id="name" type="text" formControlName="name" />
-      <div class="error" *ngIf="name?.touched && name?.invalid">
-        نام الزامی است.
-      </div>
+      <div class="error" *ngIf="name?.touched && name?.invalid">نام الزامی است.</div>
     </div>
 
-    <!-- ایمیل -->
     <div class="form-group">
       <label for="email">ایمیل</label>
       <input id="email" type="email" formControlName="email" />
@@ -21,25 +17,18 @@
       </div>
     </div>
 
-    <!-- شماره تلفن -->
     <div class="form-group">
       <label for="phone">شماره تلفن</label>
       <input id="phone" type="text" formControlName="phone" />
-      <div class="error" *ngIf="phone?.touched && phone?.invalid">
-        شماره تلفن معتبر نیست.
-      </div>
+      <div class="error" *ngIf="phone?.touched && phone?.invalid">شماره تلفن معتبر نیست.</div>
     </div>
 
-    <!-- امتیاز اعتباری -->
     <div class="form-group">
       <label for="creditScore">امتیاز اعتباری</label>
       <input id="creditScore" type="number" formControlName="creditScore" />
-      <div class="error" *ngIf="creditScore?.touched && creditScore?.invalid">
-        امتیاز باید بین ۰ تا ۹۰۰ باشد.
-      </div>
+      <div class="error" *ngIf="creditScore?.touched && creditScore?.invalid">امتیاز باید بین ۰ تا ۹۰۰ باشد.</div>
     </div>
 
-    <!-- وضعیت -->
     <div class="form-group">
       <label for="status">وضعیت</label>
       <select id="status" formControlName="status">
@@ -48,9 +37,8 @@
       </select>
     </div>
 
-    <!-- دکمه‌ها -->
     <div class="actions">
-      <button type="submit" [disabled]="saving">
+      <button type="submit" [disabled]="saving"> 
         {{ saving ? 'در حال ذخیره...' : 'ذخیره تغییرات' }}
       </button>
       <button type="button" (click)="navigateToProfile()">بازگشت</button>
@@ -58,7 +46,6 @@
   </form>
 </div>
 
-<!-- حالت لودینگ -->
 <ng-template #loadingTpl>
-  <p>در حال بارگذاری پروفایل...</p>
+  <p style="text-align:center; color:#777; margin-top:30px;">در حال بارگذاری پروفایل...</p>
 </ng-template>

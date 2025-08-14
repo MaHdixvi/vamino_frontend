@@ -3,29 +3,29 @@
 /* This CSS file styles the outer container of the edit profile page. */
 /* It ensures the edit form is centered and styled consistently with the app. */
 
-.edit-profile-page-container {
+/* .edit-profile-page-container { */
   /* Center the edit form on the page */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   background-color: #f0f2f5;
   padding: 40px 20px;
   box-sizing: border-box;
-}
+} */
 
 /* Style the main heading of the page */
-.edit-profile-page-container h1 {
+/* .edit-profile-page-container h1 {
   margin-bottom: 30px;
   color: #0056b3;
   font-size: 1.8rem;
   font-weight: 600;
   text-align: center;
   font-family: 'Tahoma', sans-serif;
-}
+} */
 
 /* Optional: Add a subtle shadow or border to the entire container for a card-like feel */
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .edit-profile-page-container {
     max-width: 800px;
     margin: 20px auto;
@@ -34,4 +34,4 @@
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
-}
+} */

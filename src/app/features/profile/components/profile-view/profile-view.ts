@@ -1,8 +1,9 @@
 // features/profile/components/profile-view/profile-view.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'app/core/services';
 import { User } from 'app/core/models/user.model';
 import { CommonModule } from '@angular/common';
+import gsap from 'gsap';
 
 @Component({
   selector: 'app-profile-view',
@@ -12,9 +13,20 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./profile-view.css'],
 })
 export class ProfileViewComponent implements OnInit {
+ @ViewChild('profileContainer') profileContainer!: ElementRef;
+
   profile: User | null = null;
   loading = true;
 
+  ngAfterViewInit(): void {
+    // اطمینان از اینکه DOM لود شده
+    gsap.from(this.profileContainer.nativeElement, {
+      opacity: 0,
+      y: 30,
+      duration: 1.2,
+      ease: 'power3.out'
+    });
+  }
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {

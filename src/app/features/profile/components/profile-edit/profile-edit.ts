@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/core/services/auth.service';
 import { User } from 'app/core/models/user.model';
@@ -9,6 +9,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { gsap } from 'gsap';
 
 @Component({
   selector: 'app-profile-edit',
@@ -27,7 +28,19 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
+  @ViewChild('submitBtn') submitBtn!: ElementRef;
+  @ViewChild('formContainer') formContainer!: ElementRef;
+
+  ngAfterViewInit(): void {
+    // انیمیشن ورود فرم (fade + scale)
+    gsap.from(this.formContainer.nativeElement, {
+      duration: 1,
+      opacity: 0,
+      scale: 0.85,
+      ease: 'power3.out',
+    });
+  }
 
   ngOnInit(): void {
     const savedProfile: User | null = this.authService.getUserProfile();
