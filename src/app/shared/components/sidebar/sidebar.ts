@@ -7,7 +7,8 @@ import {
   QueryList,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { gsap } from 'gsap';
+import {  gsap } from 'gsap';
+import CSSPlugin from 'gsap/src/CSSPlugin';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,6 +30,7 @@ export class Sidebar implements AfterViewInit {
   constructor(private router: Router) {}
 
   ngAfterViewInit(): void {
+    gsap.registerPlugin(CSSPlugin)
     // انیمیشن ورود با تأخیر برای هر آیتم منو
     gsap.from(this.menuItemElements.toArray(), {
       opacity: 0,

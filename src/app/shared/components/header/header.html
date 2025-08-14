@@ -4,7 +4,7 @@
   </div>
 
   <div #userInfo *ngIf="userProfile; else loginBlock" class="user-info">
-    <span class="user-name">
+    <span class="user-name" dir="rtl">
       سلام، {{ userProfile.name || userProfile.sub }}
     </span>
     <button class="btn-logout" (click)="logout()">خروج</button>

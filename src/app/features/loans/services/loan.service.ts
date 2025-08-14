@@ -1,9 +1,10 @@
 // loans/services/loan.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'environments/environment';
-import { Loan } from 'app/core/models';
+import { LoanApplicationDTO, LoanRequestDto } from 'app/core/models/loan.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,28 +14,52 @@ export class LoanService {
 
   constructor(private http: HttpClient) {}
 
-  // دریافت لیست وام‌ها
-  getLoans(): Observable<Loan[]> {
-    return this.http.get<Loan[]>(this.apiUrl);
+  // دریافت تمام وام‌ها (مثلا همه وام‌ها یا همه وام‌های یک کاربر)
+  getLoansByUser(userId: string): Observable<any> {
+    return this.http
+      .get<any>(`${this.apiUrl}/user/${userId}`)
+      .pipe(catchError(this.handleError));
   }
 
-  // دریافت جزئیات یک وام
-  getLoanById(id: number): Observable<Loan> {
-    return this.http.get<Loan>(`${this.apiUrl}/${id}`);
+  // دریافت جزئیات یک وام با ID
+  getLoanById(id: string): Observable<any> {
+    return this.http
+      .get<any>(`${this.apiUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
 
-  // ارسال درخواست وام جدید
-  requestLoan(data: any): Observable<Loan> {
-    return this.http.post<Loan>(this.apiUrl, data);
+  // ثبت درخواست وام
+  requestLoan(data: LoanRequestDto): Observable<LoanRequestDto> {
+    return this.http
+      .post<LoanRequestDto>(this.apiUrl, data)
+      .pipe(catchError(this.handleError));
   }
 
-  // بروزرسانی وام (مثلاً توسط مدیر)
-  updateLoan(id: number, data: any): Observable<Loan> {
-    return this.http.put<Loan>(`${this.apiUrl}/${id}`, data);
+  // به‌روزرسانی وام (اگر API PUT داری)
+  updateLoan(
+    id: string,
+    data: Partial<LoanRequestDto>
+  ): Observable<LoanRequestDto> {
+    return this.http
+      .put<LoanRequestDto>(`${this.apiUrl}/${id}`, data)
+      .pipe(catchError(this.handleError));
   }
 
-  // حذف وام
-  deleteLoan(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  // حذف وام (اگر API DELETE داری)
+  deleteLoan(id: string): Observable<void> {
+    return this.http
+      .delete<void>(`${this.apiUrl}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'خطایی رخ داده است';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `خطای سمت کلاینت: ${error.error.message}`;
+    } else {
+      errorMessage = `خطای سرور: ${error.status} - ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }

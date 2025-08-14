@@ -1,3 +1,13 @@
+.loan-list {
+  margin: 20px 0;
+  padding: 20px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  font-family: 'Tahoma', sans-serif;
+  direction: rtl;
+}
+
 .loan-list .header {
   display: flex;
   justify-content: space-between;
@@ -6,161 +16,117 @@
   flex-wrap: wrap;
 }
 
+.loan-list h3 {
+  color: #0056b3;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
 .btn-add-loan {
-  background-color: #007bff;
-  color: white;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 8px;
   text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-  white-space: nowrap;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-add-loan:hover {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.loan-list h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #0056b3;
-  text-align: right;
-}
-
-.loan-list {
-  margin: 20px 0;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  font-family: 'Tahoma', 'Segoe UI', sans-serif;
-  direction: rtl;
-  text-align: right;
-}
-
-.loan-list h3 {
-  color: #0056b3;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-/* بارگذاری */
 .loading {
   text-align: center;
-  color: #6c757d;
   font-size: 1.1rem;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  margin: 10px 0;
+  color: #6c757d;
 }
 
-/* جدول وام‌ها */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
+.loan-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
 }
 
-.table thead {
-  background-color: #007bff;
-  color: white;
+.loan-card {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.table thead th {
-  padding: 12px 15px;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.9rem;
+.loan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
 
-.table tbody tr {
-  border-bottom: 1px solid #dee2e6;
-  transition: background-color 0.2s ease;
-  cursor: default;
-}
-
-.table tbody tr:hover {
-  background-color: #f1f8ff;
-}
-
-.table tbody td {
-  padding: 12px 15px;
+.loan-field {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.95rem;
+}
+
+.loan-field .label {
+  font-weight: bold;
   color: #495057;
 }
 
-.table tbody td:nth-child(1) {
-  font-weight: bold;
-  color: #28a745;
-}
-
-.table tbody td:nth-child(3) {
+.loan-field .value {
   font-weight: 500;
+  color: #333;
 }
 
-.table tbody td:nth-child(3).pending {
+.loan-field .value.pending {
   color: #ffc107;
-  font-style: italic;
 }
 
-.table tbody td:nth-child(3).approved {
+.loan-field .value.approved {
   color: #28a745;
-  font-weight: bold;
 }
 
-.table tbody td:nth-child(3).rejected {
+.loan-field .value.rejected {
   color: #dc3545;
   text-decoration: line-through;
 }
 
-/* لینک عملیات */
-.table a {
-  color: #007bff;
+.loan-actions {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.btn-view {
+  padding: 6px 12px;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
   text-decoration: none;
   font-size: 0.9rem;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: all 0.2s;
+  transition: background 0.2s ease;
 }
 
-.table a:hover {
-  background-color: #007bff;
-  color: white;
+.btn-view:hover {
+  background: #0056b3;
 }
 
-/* پیام وقتی هیچ وامی نیست */
 .no-loans {
   text-align: center;
   color: #6c757d;
   font-style: italic;
-  margin: 20px 0;
-  font-size: 1rem;
+  margin-top: 20px;
 }
 
 /* ریسپانسیو */
-@media (max-width: 768px) {
-  .loan-list {
-    padding: 15px;
-    margin: 10px;
-  }
-
-  .loan-list h3 {
-    font-size: 1.3rem;
-  }
-
-  .table {
-    font-size: 0.9rem;
-  }
-
-  .table th, .table td {
-    padding: 10px 8px;
-  }
-
-  .table a {
-    padding: 4px 8px;
-    font-size: 0.85rem;
+@media (max-width: 480px) {
+  .loan-cards {
+    grid-template-columns: 1fr;
   }
 }
+.loan-card {
+  will-change: transform, opacity; /* کمک به کارایی انیمیشن */
+}
+

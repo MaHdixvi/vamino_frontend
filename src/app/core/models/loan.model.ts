@@ -1,9 +1,17 @@
-export interface Loan {
-  id: number;
-  amount: number;
+export interface LoanApplicationDTO {
+  id: string;
+  numberOfInstallments: number;
+  purpose: string;
+  requestedAmount: number;
   status: string;
-  userId: number;
-  purpose?: string;
-  date?: string;
+  submitDate: string;
+  userId: string;
+}
 
+export interface LoanRequestDto {
+  id?: string;
+  userId: string;
+  requestedAmount: number;
+  numberOfInstallments: number;
+  purpose: string;
 }

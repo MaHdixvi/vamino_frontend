@@ -25,7 +25,9 @@ export class Header implements OnInit, AfterViewInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.userProfile = this.authService.getUserProfile();
+    this.authService.userProfile$.subscribe((data)=>{
+      this.userProfile = data
+    })
     console.log('User Profile:', this.userProfile);
   }
 

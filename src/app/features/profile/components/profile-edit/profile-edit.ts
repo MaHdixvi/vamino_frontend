@@ -30,36 +30,39 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const savedProfileRaw = this.authService.getUserProfile(); // UserProfile | null
-const savedProfile: User | null = savedProfileRaw
-  ? {
-      id: Number(savedProfileRaw.id),
-      name: savedProfileRaw.name || '',
-      email: savedProfileRaw.email || '',
-      phone: savedProfileRaw.phone || '',
-      creditScore: savedProfileRaw.creditScore || 0,
-      status: savedProfileRaw.status || 'active',
-    }
-  : null;
+    this.loading = true;
 
-    this.profileForm = this.fb.group({
-      name: [savedProfile?.name || '', Validators.required],
-      email: [
-        savedProfile?.email || '',
-        [Validators.required, Validators.email],
-      ],
-      phone: [
-        savedProfile?.phone || '',
-        [Validators.pattern('^[0-9]{10,15}$')],
-      ],
-      creditScore: [
-        savedProfile?.creditScore || 0,
-        [Validators.min(0), Validators.max(900)],
-      ],
-      status: [savedProfile?.status || 'active'],
+    this.authService.userProfile$.subscribe((savedProfile) => {
+      const profileData = savedProfile
+        ? {
+            id: Number(savedProfile.id),
+            name: savedProfile.name || '',
+            email: savedProfile.email || '',
+            phone: savedProfile.phone || '',
+            creditScore: savedProfile.creditScore || 0,
+            status: savedProfile.status || 'active',
+          }
+        : {
+            name: '',
+            email: '',
+            phone: '',
+            creditScore: 0,
+            status: 'active',
+          };
+
+      this.profileForm = this.fb.group({
+        name: [profileData.name, Validators.required],
+        email: [profileData.email, [Validators.required, Validators.email]],
+        phone: [profileData.phone, [Validators.pattern('^[0-9]{10,15}$')]],
+        creditScore: [
+          profileData.creditScore,
+          [Validators.min(0), Validators.max(900)],
+        ],
+        status: [profileData.status],
+      });
+
+      this.loading = false;
     });
-
-    this.loading = false;
   }
 
   async onSubmit(): Promise<void> {

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
-import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { TokenService } from './token.service';
 
 interface ApiResponse<T> {
@@ -20,7 +20,7 @@ export interface UserProfile {
   phone?: string;
   creditScore?: number;
   status?: string;
-  role?: string;
+  role?: string | null;
 }
 
 @Injectable({
@@ -28,7 +28,16 @@ export interface UserProfile {
 })
 export class AuthService {
   private isLoggedInFlag = false;
-  private userProfile: UserProfile | null = null;
+  private userProfileSubject = new BehaviorSubject<UserProfile>({
+    id: '',
+    name: '',
+    creditScore:0,
+    email: '',
+    phone: '',
+    role: null,
+    status: undefined,
+  });
+  userProfile$ = this.userProfileSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -66,7 +75,14 @@ export class AuthService {
   logout(): void {
     this.tokenService.removeToken();
     this.isLoggedInFlag = false;
-    this.userProfile = null;
+    this.userProfileSubject.next({
+      id: '',
+      name: '',
+      email: '',
+      phone: '',
+      role: null,
+      status: undefined,
+    });
     this.router.navigate(['/auth/login']);
   }
 
@@ -80,8 +96,8 @@ export class AuthService {
     return this.tokenService.getToken();
   }
 
-  getUserProfile(): UserProfile | null {
-    return this.userProfile;
+  getUserProfile(): Observable<UserProfile | null> {
+    return this.userProfile$;
   }
 
   updateProfile(profileData: Partial<UserProfile>): Observable<any> {
@@ -125,11 +141,20 @@ export class AuthService {
       .get<UserProfile>(`${environment.apiUrl}/Users/${userId}`)
       .pipe(
         map((user) => {
-          this.userProfile = user;
+          this.userProfileSubject.next(user);
           return user;
         }),
         catchError((err) => {
           console.error('Error loading user profile:', err);
+          this.userProfileSubject.next({
+            id: '',
+            name: '',
+            email: '',
+            phone: '',
+            creditScore: 0,
+            status: '',
+            role: null,
+          });
           return of(null);
         })
       );

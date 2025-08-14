@@ -1,37 +1,37 @@
 <div class="loan-list">
-  <div class="header" dir="ltr">
-    <a routerLink="/loan/add" class="btn-add-loan">درخواست وام جدید</a>
+  <div class="header" dir="rtl">
+
     <h3>لیست وام‌های شما</h3>
+        <a routerLink="/loan/add" class="btn-add-loan">درخواست وام جدید</a>
   </div>
 
   <div *ngIf="loading" class="loading">
     در حال بارگذاری...
   </div>
 
-  <table *ngIf="!loading && loans.length > 0" class="table">
-    <thead>
-      <tr>
-        <th>مبلغ</th>
-        <th>هدف</th>
-        <th>وضعیت</th>
-        <th>تاریخ</th>
-        <th>عملیات</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let loan of loans">
-        <td>{{ loan.amount | number }} تومان</td>
-        <td>{{ loan.purpose }}</td>
-        <td [class]="loan.status.toLowerCase()">
-          {{ loan.status }}
-        </td>
-        <td>{{ loan.date | date: 'yyyy/MM/dd' }}</td>
-        <td>
-          <a [routerLink]="['/loans', loan.id]">مشاهده</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="!loading" class="loan-cards">
+    @for (loan of this.loans; track $index) {
+      <div class="loan-card" #loanRow>
+        <div class="loan-field">
+          <span class="label">مبلغ:</span>
+          <span class="value">{{ loan.requestedAmount | number }} تومان</span>
+        </div>
+        <div class="loan-field">
+          <span class="label">وضعیت:</span>
+          <span class="value" [class]="loan.status.toLowerCase()">
+            {{ loan.status }}
+          </span>
+        </div>
+        <div class="loan-field">
+          <span class="label">تاریخ:</span>
+          <span class="value">{{ loan.submitDate | date: 'yyyy/MM/dd' }}</span>
+        </div>
+        <div class="loan-actions">
+          <a [routerLink]="['/loans', loan.id]" class="btn-view">مشاهده</a>
+        </div>
+      </div>
+    }
+  </div>
 
   <p *ngIf="!loading && loans.length === 0" class="no-loans">
     هیچ وامی یافت نشد.

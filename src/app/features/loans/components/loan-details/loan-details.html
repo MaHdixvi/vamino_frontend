@@ -1,34 +1,78 @@
 <div #container class="loan-details-container">
   <button #btnBack type="button" class="btn-back" (click)="goBack()">
-    &larr; بازگشت به لیست وام‌ها
+    ← بازگشت به لیست وام‌ها
   </button>
 
-  <div *ngIf="loading" class="loading">
-    در حال بارگذاری اطلاعات وام...
-  </div>
-
-  <div *ngIf="error" class="error-message">
-    {{ error }}
-  </div>
+  <div *ngIf="loading" class="loading">در حال بارگذاری اطلاعات وام...</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
 
   <div *ngIf="loan && !loading" class="loan-info">
     <h2>جزئیات وام</h2>
-
     <div class="info-grid">
-      <div class="info-item">
+
+      <div class="info-item" #infoItem>
         <label>مبلغ وام:</label>
         <span #amountText></span>
       </div>
 
-      <div class="info-item">
+      <div class="info-item" #infoItem>
+        <label>تعداد اقساط:</label>
+        <span #installmentsText></span>
+      </div>
+
+      <div class="info-item" #infoItem>
+        <label>هدف وام:</label>
+        <span #purposeText></span>
+      </div>
+
+      <div class="info-item" #infoItem>
+        <label>تاریخ ثبت:</label>
+        <span #dateText></span>
+      </div>
+
+      <div class="info-item" #infoItem>
         <label>وضعیت:</label>
-        <span #statusText class="status-badge"
-          [ngClass]="{
-            'pending': loan.status === 'pending',
-            'approved': loan.status === 'approved',
-            'rejected': loan.status === 'rejected'
-          }"
-        ></span>
+        <span #statusText class="status-badge" [ngClass]="getStatusClass(loan.status)"></span>
+      </div>
+
+      <div class="info-item" #infoItem>
+        <label>شناسه وام:</label>
+        <span #idText></span>
+      </div>
+
+      <div class="info-item" #infoItem>
+        <label>شناسه کاربر:</label>
+        <span #userIdText></span>
+      </div>
+
+    </div>
+
+    <!-- Installments Section -->
+    <div class="installments-section">
+      <button class="toggle-installments" (click)="toggleInstallments()">
+        {{ showInstallments ? 'پنهان کردن اقساط' : 'نمایش اقساط' }}
+      </button>
+
+      <div *ngIf="showInstallments && installments.length > 0" class="installments-list">
+        <h3>لیست اقساط</h3>
+        <div class="installment-header">
+          <div>شماره</div>
+          <div>تاریخ سررسید</div>
+          <div>مبلغ</div>
+          <div>وضعیت</div>
+        </div>
+        <div *ngFor="let installment of installments" class="installment-item">
+          <div>{{ installment.number }}</div>
+          <div>{{ formatDate(installment.dueDate.toString()) }}</div>
+          <div>{{ formatCurrency(installment.totalAmount) }} تومان</div>
+          <div [ngClass]="'status-' + installment.status.toLowerCase()">
+            {{ getStatusLabel(installment.status) }}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="showInstallments && installments.length === 0" class="no-installments">
+        هیچ قسطی یافت نشد
       </div>
     </div>
   </div>

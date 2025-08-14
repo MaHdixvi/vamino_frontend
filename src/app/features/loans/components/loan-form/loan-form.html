@@ -1,39 +1,146 @@
 <div #formContainer class="loan-form-container">
-  <form (ngSubmit)="onSubmit()" #loanForm="ngForm" novalidate>
-    <label for="amount">مبلغ وام</label>
-    <input
-      type="number"
-      id="amount"
-      [(ngModel)]="formData.amount"
-      name="amount"
-      required
-      min="100000"
-    />
+  <div class="form-header">
+    <h2 class="form-title">درخواست وام جدید</h2>
+    <div class="form-icon">💸</div>
+  </div>
 
-    <label for="purpose">هدف از وام</label>
-    <input
-      type="text"
-      id="purpose"
-      [(ngModel)]="formData.purpose"
-      name="purpose"
-      required
-    />
+  <form (ngSubmit)="onSubmit()" #loanForm="ngForm" novalidate class="floating-form">
+    <!-- Loan Amount -->
+    <div class="form-group" #amountGroup>
+      <label for="amount" class="input-label">
+        <span class="label-text">مبلغ وام</span>
+        <span class="currency-badge">تومان</span>
+      </label>
+      <div class="input-container">
+        <input
+          type="number"
+          id="amount"
+          name="amount"
+          [(ngModel)]="formData.requestedAmount"
+          required
+          min="1000000"
+          #amountInput="ngModel"
+          class="glow-input"
+          (focus)="onInputFocus(amountGroup)"
+          (blur)="onInputBlur(amountGroup)"
+          (change)="previewInstallmentSchedule()"
+        />
+        <div class="input-underline"></div>
+      </div>
+      <div class="error-message" *ngIf="amountInput.invalid && amountInput.touched">
+        <div class="error-icon">⚠️</div>
+        مبلغ باید حداقل ۱,۰۰۰,۰۰۰ تومان باشد
+      </div>
+    </div>
 
-    <label for="description">توضیحات</label>
-    <textarea
-      id="description"
-      [(ngModel)]="formData.description"
-      name="description"
-      rows="4"
-    ></textarea>
+    <!-- Loan Purpose -->
+    <div class="form-group" #purposeGroup>
+      <label for="purpose" class="input-label">هدف از وام</label>
+      <div class="input-container">
+        <input
+          type="text"
+          id="purpose"
+          name="purpose"
+          [(ngModel)]="formData.purpose"
+          required
+          #purposeInput="ngModel"
+          class="glow-input"
+          (focus)="onInputFocus(purposeGroup)"
+          (blur)="onInputBlur(purposeGroup)"
+        />
+        <div class="input-underline"></div>
+      </div>
+      <div class="error-message" *ngIf="purposeInput.invalid && purposeInput.touched">
+        <div class="error-icon">⚠️</div>
+        لطفاً هدف وام را وارد کنید
+      </div>
+    </div>
 
+    <!-- Installments -->
+    <div class="form-group" #installmentsGroup>
+      <label for="installments" class="input-label">تعداد اقساط</label>
+      <div class="input-container">
+        <input
+          type="number"
+          id="installments"
+          name="installments"
+          [(ngModel)]="formData.numberOfInstallments"
+          required
+          min="3"
+          max="36"
+          #installmentsInput="ngModel"
+          class="glow-input"
+          (focus)="onInputFocus(installmentsGroup)"
+          (blur)="onInputBlur(installmentsGroup)"
+          (change)="previewInstallmentSchedule()"
+        />
+        <div class="input-underline"></div>
+      </div>
+      <div class="error-message" *ngIf="installmentsInput.invalid && installmentsInput.touched">
+        <div class="error-icon">⚠️</div>
+        تعداد اقساط باید بین ۳ تا ۳۶ ماه باشد
+      </div>
+    </div>
+
+    <!-- Installment Schedule Preview -->
+    <div *ngIf="showInstallmentSchedule && installmentSchedule" 
+         class="schedule-preview" 
+         #scheduleContainer>
+      <h3 class="schedule-title">پیش‌نمایش اقساط وام</h3>
+      
+      <div class="schedule-summary">
+        <div class="summary-item">
+          <span class="summary-label">مبلغ کل وام:</span>
+          <span class="summary-value">{{ installmentSchedule.totalAmount | number:'fa-IR' }} تومان</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">سود کل:</span>
+          <span class="summary-value">{{ installmentSchedule.totalInterest | number:'fa-IR' }} تومان</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">تعداد اقساط:</span>
+          <span class="summary-value">{{ installmentSchedule.numberOfInstallments }}</span>
+        </div>
+      </div>
+      
+      <div class="installment-items">
+        <div class="installment-header">
+          <div>شماره قسط</div>
+          <div>تاریخ سررسید</div>
+          <div>مبلغ اصل</div>
+          <div>سود</div>
+          <div>جمع کل</div>
+        </div>
+        
+        <div *ngFor="let installment of installmentSchedule.installments" 
+             class="installment-item">
+          <div>{{ installment.number }}</div>
+          <div>{{ installment.dueDate | date:'yyyy/MM/dd' }}</div>
+          <div>{{ installment.principalAmount | number:'fa-IR' }}</div>
+          <div>{{ installment.interestAmount | number:'fa-IR' }}</div>
+          <div>{{ installment.totalAmount | number:'fa-IR' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
     <button
       type="submit"
       #submitBtn
-      [disabled]="loanForm.invalid"
-      class="btn-submit"
+      [disabled]="loanForm.invalid || !userId || isSubmitting"
+      class="btn-submit floating-btn"
+      (mouseenter)="onButtonHover()"
+      (mouseleave)="onButtonLeave()"
     >
-      ارسال درخواست
+      <span class="btn-text">{{ isSubmitting ? 'در حال ارسال...' : 'ارسال درخواست' }}</span>
+      <span class="btn-icon">{{ isSubmitting ? '⏳' : '🚀' }}</span>
     </button>
   </form>
+
+  <!-- Background Effects -->
+  <div class="background-effects">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
 </div>
