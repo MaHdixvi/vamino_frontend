@@ -4,7 +4,7 @@ import { Routes } from '@angular/router';
 
 // Guards
 import { authGuard } from './core/guards/auth.guard';
-import { roleGuard } from './core/guards/role.guard';
+// import { roleGuard } from './core/guards/role.guard';
 import { LoginComponent, RegisterComponent } from './features/auth/components';
 import { DashboardPage } from './features/dashboard/pages';
 import { LoanDetailsPage, LoanFormPage, LoanListPage } from './features/loans/pages';
@@ -32,37 +32,37 @@ export const routes: Routes = [
   {
     path: '',
     component: DashboardPage,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'loans',
     component: LoanListPage,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'loans/:id',
     component: LoanDetailsPage,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'loan/add',
     component: LoanFormPage,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'notifications',
     component: NotificationPage,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'profile',
     component: ProfilePage,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'profile/edit',
     component: EditProfilePage,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
 { path: 'profile/edit', component: ProfileEditComponent }
 ,

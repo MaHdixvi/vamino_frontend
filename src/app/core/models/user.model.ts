@@ -5,5 +5,4 @@ export interface User {
   phone: string;
   creditScore: number;
   status:string
-  roles?: string[];
 }
