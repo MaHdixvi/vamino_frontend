@@ -7,6 +7,7 @@ import {
   ViewChildren,
   QueryList,
   ElementRef,
+  ViewChild,
 } from '@angular/core';
 import { LoanService } from '../../services/loan.service';
 import { CommonModule } from '@angular/common';

@@ -2,25 +2,44 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #0056b3, #4377f7);
+  background: linear-gradient(120deg, #4B6EAB, #4377f7, #00c6ff);
+  /* background: linear-gradient(120deg, #4B6EAB, #3A8BBE, #29B8D5); */
+  background-size: 300% 300%;
+  animation: gradientMove 8s ease infinite;
   color: white;
   padding: 15px 30px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  font-family: 'Tahoma', sans-serif;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
   user-select: none;
+  backdrop-filter: blur(6px);
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .logo h1 {
   margin: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
   letter-spacing: 2px;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  cursor: default;
 }
 
 .user-info {
@@ -30,40 +49,43 @@
   font-size: 15px;
   font-weight: 500;
   user-select: text;
-  text-shadow: 0 0 4px rgba(0,0,0,0.3);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
 }
 
 .btn-logout {
-  background-color: #dc3545;
+  background: linear-gradient(135deg, #ff4d4d, #b02a37);
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 8px 18px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.6);
-  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 3px 8px rgba(176, 42, 55, 0.7);
+  transition: all 0.3s ease;
 }
 
 .btn-logout:hover {
-  background-color: #b02a37;
-  box-shadow: 0 4px 10px rgba(176, 42, 55, 0.8);
+  background: linear-gradient(135deg, #fd6161, #d73644);
+  box-shadow: 0 5px 14px rgba(176, 42, 55, 0.9);
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* ریسپانسیو */
 @media (max-width: 600px) {
   .app-header {
     flex-direction: column;
-    padding: 15px 20px;
-    gap: 10px;
+    padding: 12px 20px;
+    gap: 12px;
   }
+
   .user-info {
     gap: 10px;
     font-size: 14px;
   }
+
   .btn-logout {
-    padding: 6px 12px;
+    padding: 6px 14px;
     font-size: 13px;
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoanListComponent } from "../../components";
+import { LoanListComponent } from '../../components/loan-list/loan-list';
 
 @Component({
   selector: 'app-loan-list-page',
