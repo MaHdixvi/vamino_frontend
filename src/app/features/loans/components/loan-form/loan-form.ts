@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from 'app/features/auth/services';
 import { take } from 'rxjs/operators';
 import { LoanRequestDto } from 'app/core/models';
-import { NgIf, DatePipe, DecimalPipe, NgFor } from '@angular/common';
+import { NgIf, DatePipe, DecimalPipe, NgFor, CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { InstallmentService } from '../../services/installment.service';
 import {
@@ -24,7 +24,7 @@ import {
 @Component({
   selector: 'app-loan-form',
   standalone: true,
-  imports: [FormsModule, NgIf, DatePipe, DecimalPipe, NgFor],
+  imports: [FormsModule, NgIf, DatePipe, DecimalPipe, NgFor,CommonModule],
   templateUrl: './loan-form.html',
   styleUrls: ['./loan-form.css'],
 })
@@ -190,7 +190,17 @@ export class LoanFormComponent implements AfterViewInit, OnDestroy {
   private submitLoanRequest(): void {
     this.loanService.requestLoan(this.formData).subscribe({
       next: (loan) => {
-        this.handleSuccess(loan.id ?? '');
+        this.installmentService.generateInstallmentSchedule({
+          amount: this.formData.requestedAmount,
+          loanId: loan.data.id,
+          numberOfInstallments:this.formData.numberOfInstallments
+        }).subscribe({
+          next: (result) => {
+           console.log(result);
+            this.handleSuccess(loan.data.id == null ? '' : loan.data.id);
+          },
+          error: () => this.showError('خطا در محاسبه اقساط'),
+        })
       },
       error: () => {
         this.handleError();

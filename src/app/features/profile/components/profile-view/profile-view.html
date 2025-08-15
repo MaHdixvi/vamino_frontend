@@ -21,7 +21,7 @@
     </div>
     <div class="info-row">
       <label>نمره اعتباری (Credit Score):</label>
-      <span [class]="getScoreClass(profile.creditScore)">{{ profile.creditScore }}</span>
+      <span [class]="getScoreClass(profile.creditScore||0)">{{ profile.creditScore }}</span>
     </div>
     <div class="info-row">
       <label>وضعیت حساب:</label>

@@ -101,7 +101,7 @@ export class AuthService {
   }
 
   updateProfile(profileData: Partial<UserProfile>): Observable<any> {
-    return this.http.put(
+    return this.http.post(
       `${environment.apiUrl}/Auth/update-profile`,
       profileData
     );

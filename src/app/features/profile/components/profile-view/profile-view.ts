@@ -1,9 +1,9 @@
 // features/profile/components/profile-view/profile-view.ts
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from 'app/core/services';
 import { User } from 'app/core/models/user.model';
 import { CommonModule } from '@angular/common';
 import gsap from 'gsap';
+import { AuthService, UserProfile } from 'app/features/auth/services';
 
 @Component({
   selector: 'app-profile-view',
@@ -15,7 +15,7 @@ import gsap from 'gsap';
 export class ProfileViewComponent implements OnInit {
  @ViewChild('profileContainer') profileContainer!: ElementRef;
 
-  profile: User | null = null;
+  profile: UserProfile | null = null;
   loading = true;
 
   ngAfterViewInit(): void {
@@ -36,8 +36,11 @@ export class ProfileViewComponent implements OnInit {
   loadProfile(): void {
     // In a real app, this would fetch from a backend service.
     // Here, we get it from the auth service as an example.
-    this.profile = this.authService.getUserProfile();
-    this.loading = false;
+     this.authService.getUserProfile().subscribe((profile) => {
+      this.profile = profile;
+      console.log(this.profile);
+      this.loading = false;
+    })
   }
   getScoreClass(score: number): string {
     if (score >= 700) {

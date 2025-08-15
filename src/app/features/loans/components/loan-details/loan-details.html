@@ -61,7 +61,7 @@
           <div>مبلغ</div>
           <div>وضعیت</div>
         </div>
-        <div *ngFor="let installment of installments" class="installment-item">
+        <div *ngFor="let installment of installments; trackBy: trackByNumber" class="installment-item">
           <div>{{ installment.number }}</div>
           <div>{{ formatDate(installment.dueDate.toString()) }}</div>
           <div>{{ formatCurrency(installment.totalAmount) }} تومان</div>

@@ -9,7 +9,7 @@ import { InstallmentDto, InstallmentReminderDto, InstallmentScheduleDto, Install
   providedIn: 'root',
 })
 export class InstallmentService {
-  private readonly apiUrl = `${environment.apiUrl}/api/installments`;
+  private readonly apiUrl = `${environment.apiUrl}/Installment`;
 
   constructor(private http: HttpClient) {}
 
@@ -34,8 +34,8 @@ export class InstallmentService {
    */
   getInstallmentsByLoanId(
     loanId: string
-  ): Observable<Result<InstallmentDto[]>> {
-    return this.http.get<Result<InstallmentDto[]>>(
+  ): Observable<Result<any>> {
+    return this.http.get<Result<any>>(
       `${this.apiUrl}/by-loan/${loanId}`
     );
   }

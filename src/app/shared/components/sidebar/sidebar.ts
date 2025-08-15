@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {  gsap } from 'gsap';
-import CSSPlugin from 'gsap/src/CSSPlugin';
+import {CSSPlugin} from 'gsap/CSSPlugin';
 
 @Component({
   selector: 'app-sidebar',

@@ -29,7 +29,7 @@ export class LoanService {
   }
 
   // ثبت درخواست وام
-  requestLoan(data: LoanRequestDto): Observable<LoanRequestDto> {
+  requestLoan(data: LoanRequestDto): Observable<any> {
     return this.http
       .post<LoanRequestDto>(this.apiUrl, data)
       .pipe(catchError(this.handleError));

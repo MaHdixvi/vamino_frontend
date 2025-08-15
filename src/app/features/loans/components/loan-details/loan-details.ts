@@ -50,6 +50,7 @@ export class LoanDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('infoItem') infoItems!: QueryList<ElementRef>;
 
   private animationTimeline!: gsap.core.Timeline;
+  private animationInitialized = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -70,9 +71,8 @@ export class LoanDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    if (this.loan) {
-      this.initAnimations();
-    }
+
+    // We'll handle animations after data is loaded
   }
 
   ngOnDestroy(): void {
@@ -91,9 +91,10 @@ export class LoanDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.loadInstallments(id);
         this.cdr.detectChanges();
 
+        // Initialize animations after data is loaded and view is updated
         setTimeout(() => {
           this.initAnimations();
-        }, 50);
+        }, 500);
       },
       error: (err) => {
         this.error = 'خطا در بارگذاری اطلاعات وام. لطفا دوباره تلاش کنید.';
@@ -108,6 +109,9 @@ export class LoanDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       next: (result) => {
         if (result.isSuccess && result.data) {
           this.installments = result.data;
+           this.installments = this.installments.sort(
+             (a, b) => Number(a.number) - Number(b.number)
+           );
         }
         this.loading = false;
       },
@@ -123,8 +127,19 @@ export class LoanDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initAnimations(): void {
-    if (!this.loan) return;
+    if (!this.loan || this.animationInitialized) return;
 
+    // Check if all required elements are available
+    if (
+      !this.container?.nativeElement ||
+      !this.btnBack?.nativeElement ||
+      !this.amountText?.nativeElement
+    ) {
+      console.warn('Animation elements not ready');
+      return;
+    }
+
+    this.animationInitialized = true;
     this.animationTimeline = gsap.timeline();
 
     // Container animation
@@ -147,89 +162,105 @@ export class LoanDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       0.2
     );
 
-    // Text animations
-    this.animationTimeline.to(
-      this.amountText.nativeElement,
-      {
-        duration: 1,
-        text: `${this.loan.requestedAmount?.toLocaleString('fa-IR')} تومان`,
-        ease: 'power2.out',
-      },
-      0.4
-    );
+    // Text animations - with null checks
+    if (this.amountText?.nativeElement) {
+      this.animationTimeline.to(
+        this.amountText.nativeElement,
+        {
+          duration: 1,
+          text: `${this.loan.requestedAmount?.toLocaleString('fa-IR')} تومان`,
+          ease: 'power2.out',
+        },
+        0.4
+      );
+    }
 
-    this.animationTimeline.to(
-      this.installmentsText.nativeElement,
-      {
-        duration: 0.8,
-        text: `${this.loan.numberOfInstallments.toString()} قسط`,
-        ease: 'power2.out',
-      },
-      0.5
-    );
+    if (this.installmentsText?.nativeElement) {
+      this.animationTimeline.to(
+        this.installmentsText.nativeElement,
+        {
+          duration: 0.8,
+          text: `${this.installments.length.toString()} قسط`,
+          ease: 'power2.out',
+        },
+        0.5
+      );
+    }
 
-    this.animationTimeline.to(
-      this.purposeText.nativeElement,
-      {
-        duration: 0.8,
-        text: this.loan.purpose,
-        ease: 'power2.out',
-      },
-      0.6
-    );
+    if (this.purposeText?.nativeElement) {
+      this.animationTimeline.to(
+        this.purposeText.nativeElement,
+        {
+          duration: 0.8,
+          text: this.loan.purpose,
+          ease: 'power2.out',
+        },
+        0.6
+      );
+    }
 
-    this.animationTimeline.to(
-      this.dateText.nativeElement,
-      {
-        duration: 0.8,
-        text: this.formatDate(this.loan.submitDate),
-        ease: 'power2.out',
-      },
-      0.7
-    );
+    if (this.dateText?.nativeElement) {
+      this.animationTimeline.to(
+        this.dateText.nativeElement,
+        {
+          duration: 0.8,
+          text: this.formatDate(this.loan.submitDate),
+          ease: 'power2.out',
+        },
+        0.7
+      );
+    }
 
-    this.animationTimeline.to(
-      this.statusText.nativeElement,
-      {
-        duration: 0.8,
-        text: this.getStatusLabel(this.loan.status),
-        ease: 'power2.out',
-      },
-      0.8
-    );
+    if (this.statusText?.nativeElement) {
+      this.animationTimeline.to(
+        this.statusText.nativeElement,
+        {
+          duration: 0.8,
+          text: this.getStatusLabel(this.loan.status),
+          ease: 'power2.out',
+        },
+        0.8
+      );
+    }
 
-    this.animationTimeline.to(
-      this.idText.nativeElement,
-      {
-        duration: 0.8,
-        text: this.loan.id,
-        ease: 'power2.out',
-      },
-      0.9
-    );
+    if (this.idText?.nativeElement) {
+      this.animationTimeline.to(
+        this.idText.nativeElement,
+        {
+          duration: 0.8,
+          text: this.loan.id,
+          ease: 'power2.out',
+        },
+        0.9
+      );
+    }
 
-    this.animationTimeline.to(
-      this.userIdText.nativeElement,
-      {
-        duration: 0.8,
-        text: this.loan.userId,
-        ease: 'power2.out',
-      },
-      1.0
-    );
+    if (this.userIdText?.nativeElement) {
+      this.animationTimeline.to(
+        this.userIdText.nativeElement,
+        {
+          duration: 0.8,
+          text: this.loan.userId,
+          ease: 'power2.out',
+        },
+        1.0
+      );
+    }
 
     // Info items animation
-    this.animationTimeline.from(
-      this.infoItems.map((item) => item.nativeElement),
-      {
-        duration: 0.8,
-        opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        ease: 'back.out(1.7)',
-      },
-      0.4
-    );
+    if (this.infoItems?.length) {
+      this.animationTimeline.from(
+        this.infoItems.map((item) => item.nativeElement),
+        {
+          duration: 0.8,
+          opacity: 0,
+          y: 40,
+          stagger: 0.15,
+          ease: 'back.out(1.7)',
+        },
+        0.4
+      );
+    }
   }
 
   getStatusClass(status: string): string {
@@ -258,5 +289,8 @@ export class LoanDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   goBack(): void {
     this.router.navigate(['/loans']);
+  }
+  trackByNumber(index: number, item: any): number {
+    return item.number;
   }
 }

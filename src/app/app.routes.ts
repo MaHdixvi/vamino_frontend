@@ -6,7 +6,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 // import { roleGuard } from './core/guards/role.guard';
 import { LoginComponent, RegisterComponent } from './features/auth/components';
-import { DashboardPage } from './features/dashboard/pages';
+import { DashboardPageComponent } from './features/dashboard/pages';
 import { LoanDetailsPage, LoanFormPage, LoanListPage } from './features/loans/pages';
 import { NotificationPage } from './features/notifications/pages';
 import { EditProfilePage, ProfilePage } from './features/profile/pages';
@@ -31,7 +31,7 @@ export const routes: Routes = [
   // Protected Routes (require authentication)
   {
     path: '',
-    component: DashboardPage,
+    component: DashboardPageComponent,
     canActivate: [authGuard],
   },
   {

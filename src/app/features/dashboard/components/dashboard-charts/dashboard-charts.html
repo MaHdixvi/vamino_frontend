@@ -1,8 +1,28 @@
 <div class="charts-container">
-  <div class="chart-card">
-    <canvas #barCanvas></canvas>
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>در حال بارگذاری نمودارها...</p>
   </div>
-  <div class="chart-card">
-    <canvas #pieCanvas></canvas>
+
+  <div *ngIf="noDataMessage" class="no-data-message">
+    <div class="message-icon">📊</div>
+    <h3>شما هیچ وامی ثبت نکردید</h3>
+    <p>هنوز هیچ وامی برای نمایش وجود ندارد. می‌توانید از بخش درخواست وام، وام جدیدی ثبت کنید.</p>
+  </div>
+
+  <div *ngIf="!loading && !noDataMessage" class="charts-grid">
+    <div class="chart-card">
+      <h3>توزیع مبلغ اقساط</h3>
+      <div class="chart-wrapper">
+        <canvas #monthlyBarChart></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>وضعیت پرداخت اقساط</h3>
+      <div class="chart-wrapper">
+        <canvas #statusPieChart></canvas>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,28 +1,69 @@
 .charts-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* کارت‌ها روی دسکتاپ (عرض بالا 900px)، هر کارت حداقل 300px و 1 سهم فضای باقی */
-.chart-card {
-  flex: 1 1 300px;
-  background: #fff;
-  border-radius: 12px;
+  font-family: 'Vazir', Tahoma, sans-serif;
+  direction: rtl;
   padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* روی تبلت (تا 900px) دو کارت در هر ردیف */
-@media (max-width: 900px) {
-  .chart-card {
-    flex: 1 1 calc(50% - 20px);
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.chart-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-5px);
+}
+
+.chart-card h3 {
+  color: #34495e;
+  margin-bottom: 20px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .charts-grid {
+    grid-template-columns: 1fr 1fr;
   }
-}
-
-/* روی موبایل (تا 600px) کارت‌ها عرض کامل بگیرند */
-@media (max-width: 600px) {
-  .chart-card {
-    flex: 1 1 100%;
+  
+  .chart-card h3 {
+    font-size: 20px;
   }
 }
