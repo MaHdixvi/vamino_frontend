@@ -1,7 +1,18 @@
 <div #container class="loan-details-container">
-  <button #btnBack type="button" class="btn-back" (click)="goBack()">
-    ← بازگشت به لیست وام‌ها
-  </button>
+  <div class="action-buttons">
+    <button #btnBack type="button" class="btn-back" (click)="goBack()">
+      ← بازگشت به لیست وام‌ها
+    </button>
+    <button
+      #btnPrint
+      type="button"
+      class="btn-print"
+      (click)="printLoanDetails()"
+      *ngIf="loan"
+    >
+      🖨️ چاپ اطلاعات وام
+    </button>
+  </div>
 
   <div *ngIf="loading" class="loading">در حال بارگذاری اطلاعات وام...</div>
   <div *ngIf="error" class="error-message">{{ error }}</div>
@@ -9,70 +20,211 @@
   <div *ngIf="loan && !loading" class="loan-info">
     <h2>جزئیات وام</h2>
     <div class="info-grid">
-
       <div class="info-item" #infoItem>
         <label>مبلغ وام:</label>
-        <span #amountText></span>
+        <span #amountText>{{ loan.requestedAmount | number }} تومان</span>
       </div>
 
       <div class="info-item" #infoItem>
         <label>تعداد اقساط:</label>
-        <span #installmentsText></span>
+        <span #installmentsText>{{ installments.length }} قسط</span>
       </div>
 
       <div class="info-item" #infoItem>
         <label>هدف وام:</label>
-        <span #purposeText></span>
+        <span #purposeText>{{ loan.purpose }}</span>
       </div>
 
       <div class="info-item" #infoItem>
         <label>تاریخ ثبت:</label>
-        <span #dateText></span>
+        <span #dateText>{{ formatDate(loan.submitDate) }}</span>
       </div>
 
       <div class="info-item" #infoItem>
         <label>وضعیت:</label>
-        <span #statusText class="status-badge" [ngClass]="getStatusClass(loan.status)"></span>
+        <span
+          #statusText
+          class="status-badge"
+          [ngClass]="getStatusClass(loan.status)"
+        >
+          {{ getStatusLabel(loan.status) }}
+        </span>
       </div>
 
       <div class="info-item" #infoItem>
         <label>شناسه وام:</label>
-        <span #idText></span>
+        <span #idText>{{ loan.id }}</span>
       </div>
 
       <div class="info-item" #infoItem>
         <label>شناسه کاربر:</label>
-        <span #userIdText></span>
+        <span #userIdText>{{ loan.userId }}</span>
       </div>
-
     </div>
 
     <!-- Installments Section -->
     <div class="installments-section">
       <button class="toggle-installments" (click)="toggleInstallments()">
-        {{ showInstallments ? 'پنهان کردن اقساط' : 'نمایش اقساط' }}
+        {{ showInstallments ? "▲ پنهان کردن اقساط" : "▼ نمایش اقساط" }}
       </button>
 
-      <div *ngIf="showInstallments && installments.length > 0" class="installments-list">
+      <div
+        *ngIf="showInstallments && installments.length > 0"
+        class="installments-list"
+      >
         <h3>لیست اقساط</h3>
         <div class="installment-header">
           <div>شماره</div>
           <div>تاریخ سررسید</div>
           <div>مبلغ</div>
           <div>وضعیت</div>
+          <div>دکمه پرداخت</div>
         </div>
-        <div *ngFor="let installment of installments; trackBy: trackByNumber" class="installment-item">
+        <div
+          *ngFor="let installment of installments; trackBy: trackByNumber"
+          class="installment-item"
+        >
           <div>{{ installment.number }}</div>
           <div>{{ formatDate(installment.dueDate.toString()) }}</div>
           <div>{{ formatCurrency(installment.totalAmount) }} تومان</div>
           <div [ngClass]="'status-' + installment.status.toLowerCase()">
             {{ getStatusLabel(installment.status) }}
           </div>
+          <div>
+            <button
+              class="btn-pay"
+              [disabled]="installment.status.toLowerCase() === 'paid'"
+              (click)="payInstallment(installment)"
+            >
+              {{
+                installment.status.toLowerCase() === "paid"
+                  ? "پرداخت شده"
+                  : "پرداخت"
+              }}
+            </button>
+          </div>
         </div>
       </div>
 
-      <div *ngIf="showInstallments && installments.length === 0" class="no-installments">
+      <div
+        *ngIf="showInstallments && installments.length === 0"
+        class="no-installments"
+      >
         هیچ قسطی یافت نشد
+      </div>
+    </div>
+  </div>
+
+  <!-- Signature Modal -->
+  <div class="signature-modal" *ngIf="showSignaturePad">
+    <div class="modal-content">
+      <h3>
+        {{
+          isCustomerSigning
+            ? "لطفا امضای مشتری را انجام دهید"
+            : "لطفا امضای مسئول را انجام دهید"
+        }}
+      </h3>
+      <canvas
+        #signatureCanvas
+        (mousedown)="startDrawing($event)"
+        (touchstart)="startDrawing($event)"
+        (mousemove)="draw($event)"
+        (touchmove)="draw($event)"
+        (mouseup)="stopDrawing()"
+        (mouseleave)="stopDrawing()"
+        (touchend)="stopDrawing()"
+      ></canvas>
+      <div class="signature-actions">
+        <button (click)="clearSignature()">پاک کردن</button>
+        <button (click)="saveSignature()">ذخیره امضا</button>
+        <button (click)="showSignaturePad = false">بستن</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Print Container (Hidden) -->
+  <div class="print-container" #printContainer>
+    <h1>گزارش وام شماره {{ loan?.id }}</h1>
+
+    <div class="print-header">
+      <div class="print-logo">
+        <img src="/assets/images/logo.png" alt="Logo" />
+      </div>
+      <div class="print-meta">
+        <div>تاریخ چاپ: {{ currentDate | persianDate }}</div>
+      </div>
+    </div>
+
+    <div class="print-section">
+      <h2>اطلاعات کلی وام</h2>
+      <table class="print-table">
+        <tr>
+          <th>مبلغ وام:</th>
+          <td>{{ loan?.requestedAmount | number }} تومان</td>
+        </tr>
+        <tr>
+          <th>تعداد اقساط:</th>
+          <td>{{ installments.length }} قسط</td>
+        </tr>
+        <tr>
+          <th>وضعیت:</th>
+          <td [class]="'status-' + loan?.status?.toLowerCase()">
+            {{ getStatusLabel(loan?.status || "") }}
+          </td>
+        </tr>
+        <tr>
+          <th>تاریخ ثبت:</th>
+          <td>{{ formatDate(loan?.submitDate || "") }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="print-section" *ngIf="installments.length > 0">
+      <h2>جدول اقساط</h2>
+      <table class="print-table installments">
+        <thead>
+          <tr>
+            <th>شماره</th>
+            <th>تاریخ سررسید</th>
+            <th>مبلغ (تومان)</th>
+            <th>وضعیت</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let installment of installments">
+            <td>{{ installment.number }}</td>
+            <td>{{ formatDate(installment.dueDate.toString()) }}</td>
+            <td>{{ installment.totalAmount | number }}</td>
+            <td [class]="'status-' + installment.status.toLowerCase()">
+              {{ getStatusLabel(installment.status) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="print-footer">
+      <div class="signature-area">
+        <div>امضاء مشتری:</div>
+        <img
+          *ngIf="customerSignatureDataUrl"
+          [src]="customerSignatureDataUrl"
+          class="signature-image"
+        />
+        <div class="signature-line"></div>
+      </div>
+      <div class="signature-area">
+        <div>امضاء مسئول:</div>
+        <img
+          *ngIf="officerSignatureDataUrl"
+          [src]="officerSignatureDataUrl"
+          class="signature-image"
+        />
+        <div class="signature-line"></div>
+      </div>
+      <div class="print-notes">
+        <p>توجه: این گزارش صرفا جهت اطلاع می‌باشد.</p>
       </div>
     </div>
   </div>

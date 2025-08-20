@@ -281,3 +281,399 @@
     display: none;
   }
 }
+/* Print styles */
+.print-container {
+  display: none;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-container, .print-container * {
+    visibility: visible;
+  }
+  .print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    font-family: 'B Nazanin', Tahoma, sans-serif;
+    direction: rtl;
+  }
+  
+  .action-buttons, .btn-print, .btn-back {
+    display: none !important;
+  }
+  
+  .print-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+  }
+  
+  .print-logo img {
+    height: 60px;
+  }
+  
+  .print-section {
+    margin-bottom: 25px;
+  }
+  
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+  }
+  
+  .print-table th, .print-table td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: right;
+  }
+  
+  .print-table th {
+    background-color: #f5f5f5;
+  }
+  
+  .print-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #333;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .signature {
+    width: 200px;
+    border-top: 1px solid #000;
+    text-align: center;
+    padding-top: 5px;
+  }
+  
+  .status-badge, [class^="status-"] {
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+  }
+  
+  .status-approved, .status-paid {
+    background-color: #e6f7e6;
+    color: #2e7d32;
+  }
+  
+  .status-pending {
+    background-color: #fff8e1;
+    color: #ff8f00;
+  }
+  
+  .status-rejected, .status-overdue {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+}
+
+/* Regular styles for print button */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.btn-print {
+  background-color: #4a6baf;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+}
+
+.btn-print:hover {
+  background-color: #3a5a9f;
+}
+/* Signature Modal */
+.signature-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+  font-size: 1.4rem;
+}
+
+canvas {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.signature-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.signature-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.signature-actions button:nth-child(1) {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.signature-actions button:nth-child(2) {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.signature-actions button:nth-child(3) {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.signature-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Print Styles */
+.print-container {
+  display: none;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  .print-container, .print-container * {
+    visibility: visible;
+  }
+  
+  .print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    font-family: 'B Nazanin', Tahoma, sans-serif;
+    direction: rtl;
+    background: white;
+    color: black;
+  }
+  
+  .print-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+  }
+  
+  .print-logo img {
+    height: 60px;
+  }
+  
+  .print-meta {
+    font-size: 0.9rem;
+  }
+  
+  .print-section {
+    margin-bottom: 25px;
+  }
+  
+  .print-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 0.9rem;
+  }
+  
+  .print-table th, .print-table td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: right;
+  }
+  
+  .print-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  .print-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #333;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .signature-area {
+    text-align: center;
+    width: 45%;
+    margin-bottom: 20px;
+  }
+  
+  .signature-image {
+    max-width: 200px;
+    max-height: 80px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    display: block;
+  }
+  
+  .signature-line {
+    width: 200px;
+    border-top: 1px solid #000;
+    margin: 10px auto 0;
+    padding-top: 5px;
+  }
+  
+  .print-notes {
+    font-size: 0.8rem;
+    color: #666;
+    text-align: left;
+  }
+  
+  /* Hide elements not needed in print */
+  .action-buttons, .toggle-installments {
+    display: none !important;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .loan-details-container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .installment-header,
+  .installment-item {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .installment-header div:nth-child(3),
+  .installment-header div:nth-child(4),
+  .installment-item div:nth-child(3),
+  .installment-item div:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .loan-details-container {
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 12px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-back, .btn-print {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .installment-header,
+  .installment-item {
+    grid-template-columns: 1fr;
+  }
+  
+  .installment-header div:nth-child(2),
+  .installment-item div:nth-child(2) {
+    display: none;
+  }
+  
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  .signature-actions {
+    flex-direction: column;
+  }
+}
+.btn-pay {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-pay:hover:not(:disabled) {
+  background: linear-gradient(135deg, #66bb6a, #388e3c);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-pay:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-pay:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+  box-shadow: none;
+}

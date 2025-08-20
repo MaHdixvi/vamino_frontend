@@ -37,7 +37,7 @@ export interface InstallmentDto {
   status: InstallmentStatus;
   
   /** شناسه یکتا (اختیاری) */
-  id?: string;
+  id: string;
 }
 
 export interface InstallmentScheduleRequestDto {
@@ -174,4 +174,9 @@ export interface InstallmentViewModel extends InstallmentDto {
   
   /** مبلغ قابل پرداخت (با احتساب جریمه احتمالی) */
   payableAmount: number;
+}
+export interface InstallmentPaymentResult {
+  success: boolean;
+  message: string;
+  trackingCode: string;
 }

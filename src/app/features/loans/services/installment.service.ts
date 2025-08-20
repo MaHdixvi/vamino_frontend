@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'environments/environment';
-import { InstallmentDto, InstallmentReminderDto, InstallmentScheduleDto, InstallmentScheduleRequestDto, Result } from 'app/core/models/installment.model';
+import { InstallmentDto, InstallmentPaymentDto, InstallmentPaymentResult, InstallmentReminderDto, InstallmentScheduleDto, InstallmentScheduleRequestDto, Result } from 'app/core/models/installment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,12 +32,8 @@ export class InstallmentService {
    * @param loanId The loan ID to get installments for
    * @returns Observable of installment list result
    */
-  getInstallmentsByLoanId(
-    loanId: string
-  ): Observable<Result<any>> {
-    return this.http.get<Result<any>>(
-      `${this.apiUrl}/by-loan/${loanId}`
-    );
+  getInstallmentsByLoanId(loanId: string): Observable<Result<any>> {
+    return this.http.get<Result<any>>(`${this.apiUrl}/by-loan/${loanId}`);
   }
 
   /**
@@ -64,6 +60,34 @@ export class InstallmentService {
   ): Observable<Result<InstallmentDto[]>> {
     return this.http.get<Result<InstallmentDto[]>>(
       `${this.apiUrl}/upcoming/${userId}?count=${count}`
+    );
+  }
+  /**
+   * Pay an installment
+   * @param request Payment request data
+   * @returns Observable of payment result
+   */
+  payInstallment(request: {
+    LoanId: string | undefined;
+    InstallmentNumber: number;
+    Amount: number;
+    PaymentMethod: string;
+  }): Observable<Result<any>> {
+    return this.http.post<Result<any>>(`${this.apiUrl}/pay`, request);
+  }
+  /**
+   * Pay all installments of a loan
+   * @param loanId The ID of the loan
+   * @param paymentMethod Payment method to use
+   * @returns Observable of installment payment result
+   */
+  payAllInstallments(
+    loanId: string,
+    installment: InstallmentPaymentDto
+  ): Observable<Result<InstallmentPaymentResult>> {
+    return this.http.post<Result<InstallmentPaymentResult>>(
+      `${this.apiUrl}/pay-all/${loanId}`,
+       installment
     );
   }
 }

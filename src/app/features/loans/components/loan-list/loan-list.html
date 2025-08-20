@@ -1,36 +1,46 @@
-<div class="loan-list">
-  <div class="header" dir="rtl">
-
+<div class="loan-list" dir="rtl">
+  <div class="header">
     <h3>لیست وام‌های شما</h3>
-        <a routerLink="/loan/add" class="btn-add-loan">درخواست وام جدید</a>
+    <a routerLink="/loan/add" class="btn-add-loan">درخواست وام جدید</a>
   </div>
 
   <div *ngIf="loading" class="loading">
     در حال بارگذاری...
   </div>
 
-  <div *ngIf="!loading" class="loan-cards">
-    @for (loan of this.loans; track $index) {
-      <div class="loan-card" #loanRow>
-        <div class="loan-field">
-          <span class="label">مبلغ:</span>
-          <span class="value">{{ loan.requestedAmount | number }} تومان</span>
-        </div>
-        <div class="loan-field">
-          <span class="label">وضعیت:</span>
-          <span class="value" [class]="loan.status.toLowerCase()">
-            {{ loan.status }}
-          </span>
-        </div>
-        <div class="loan-field">
-          <span class="label">تاریخ:</span>
-          <span class="value">{{ loan.submitDate | date: 'yyyy/MM/dd' }}</span>
-        </div>
-        <div class="loan-actions">
-          <a [routerLink]="['/loans', loan.id]" class="btn-view">مشاهده</a>
-        </div>
+  <div *ngIf="!loading && loans.length > 0" class="loan-cards">
+    <div class="loan-card" *ngFor="let loan of loans; let i = index" #loanRow>
+      <div class="loan-field">
+        <span class="label">مبلغ:</span>
+        <span class="value">{{ loan.requestedAmount | number }} تومان</span>
       </div>
-    }
+
+      <div class="loan-field">
+        <span class="label">وضعیت:</span>
+        <span class="value" [class]="loan.status.toLowerCase()">
+          {{ loan.status }}
+        </span>
+      </div>
+
+      <div class="loan-field">
+        <span class="label">تاریخ:</span>
+        <span class="value">{{ loan.submitDate | persianDate }}</span>
+      </div>
+
+      <div class="loan-actions">
+        <a [routerLink]="['/loans', loan.id]" class="btn-view">مشاهده</a>
+<button 
+  *ngIf="loan.status === 'Approved' || loan.status === 'Paid'"
+  class="btn-pay"
+  (click)="initiatePayment(loan.id, loan)"
+  [disabled]="paymentLoading[loan.id] || loan.status === 'Paid'">
+  <span *ngIf="loan.status !== 'Paid' && !paymentLoading[loan.id]">پرداخت</span>
+  <span *ngIf="loan.status === 'Paid'">پرداخت شده</span>
+  <span *ngIf="paymentLoading[loan.id]" class="loading-spinner"></span>
+</button>
+
+      </div>
+    </div>
   </div>
 
   <p *ngIf="!loading && loans.length === 0" class="no-loans">

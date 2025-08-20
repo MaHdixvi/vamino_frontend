@@ -29,6 +29,7 @@
     "@types/gsap": "^1.20.2",
     "bootstrap": "^5.3.7",
     "chart.js": "^4.5.0",
+    "date-fns-jalali": "^4.1.0-0",
     "gsap": "^3.13.0",
     "jwt-decode": "^4.0.0",
     "ng2-charts": "^8.0.0",
